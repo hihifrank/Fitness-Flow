@@ -436,6 +436,9 @@
             }
 
             function completeOnboarding() {
+                console.log('=== completeOnboarding called ===');
+                console.log('userData:', userData);
+                
                 createConfetti();
                 showSuccessToast();
 
@@ -443,8 +446,12 @@
                 localStorage.setItem('q2_personality', userData.personality);
                 localStorage.setItem('q2_goal', userData.goal);
                 localStorage.setItem('q2_experience', userData.experience);
+                
+                console.log('Data saved to localStorage');
+                console.log('Will redirect to Q3.html in 2.5 seconds...');
 
                 setTimeout(() => {
+                    console.log('Redirecting NOW to Q3.html');
                     // 跳转到 Q3.html
                     window.location.href = 'Q3.html';
                 }, 2500);
