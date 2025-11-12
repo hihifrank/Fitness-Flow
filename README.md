@@ -1,7 +1,9 @@
 # Fitness-Flow AI 健身助手
 
-> 🌐 **在線演示**: [立即體驗 Fitness-Flow](https://hihifrank.github.io/Fitness-Flow/Q1.html)  
+> 🌐 **在線演示**: [立即體驗 Fitness-Flow](https://hihifrank.github.io/Fitness-Flow/)  
 > 📋 **開發記錄**: [查看 AI 開發互動記錄 (chat.md)](./chat.md)
+
+**注意**: 如果遇到 404 錯誤，請確保在 GitHub 倉庫設置中啟用了 GitHub Pages（Settings → Pages → Source 設為 "GitHub Actions"）
 
 ---
 
@@ -104,10 +106,12 @@
 
 2. 在瀏覽器中開啟 `Q1.html` 開始使用
 
-3. 或訪問 GitHub Pages（如已啟用）：
+3. 或訪問 GitHub Pages 在線版本：
    ```
-   https://hihifrank.github.io/Fitness-Flow/Q1.html
+   https://hihifrank.github.io/Fitness-Flow/
    ```
+   
+   頁面會自動重定向到 Q1.html 開始問卷流程
 
 ## 📝 開發記錄
 
