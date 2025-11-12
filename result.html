@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>window.FontAwesomeConfig = { autoReplaceSvg: 'nest'};</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.plot.ly/plotly-3.1.1.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>::-webkit-scrollbar { display: none;}
+    @keyframes slideUp {
+        from { transform: translateY(20px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+    @keyframes sparkle {
+        0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        50% { transform: scale(1.2) rotate(180deg); opacity: 0.8; }
+    }
+    @keyframes fillProgress {
+        from { width: 0; }
+        to { width: var(--progress-width); }
+    }
+    .animate-slide-up { animation: slideUp 0.6s ease-out; }
+    .animate-sparkle { animation: sparkle 1.5s ease-in-out infinite; }
+    .progress-fill { animation: fillProgress 1.5s ease-out forwards; }
+    </style>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              'inter': ['Inter', 'sans-serif']
+            },
+            colors: {
+              'primary': '#26C6DA',
+              'primary-dark': '#00ACC1',
+              'secondary': '#A5D6A7',
+              'accent': '#FFCA28',
+              'background': '#F0F8F0',
+              'card-bg': '#FFFFFF'
+            }
+          }
+        }
+      }
+    </script>
+</head>
+<body class="font-inter bg-background overflow-x-hidden" style="width: 375px; height: 812px; margin: 0 auto;">
+    <div id="app-container" class="relative w-full h-full flex flex-col">
+        <header id="header" class="sticky top-0 z-50 bg-gradient-to-br from-cyan-50 to-teal-50 rounded-b-xl shadow-md mx-4 mt-0 px-4 py-3">
+            <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+                        <i class="fa-solid fa-dumbbell text-white text-sm"></i>
+                    </div>
+                    <span class="text-base font-bold text-primary">Fitness-Flow</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button class="w-8 h-8 bg-white bg-opacity-80 rounded-lg flex items-center justify-center hover:bg-opacity-100 transition-all shadow-sm">
+                        <i class="fa-solid fa-file-pdf text-primary-dark text-sm"></i>
+                    </button>
+                    <button class="w-8 h-8 bg-white bg-opacity-80 rounded-lg flex items-center justify-center hover:bg-opacity-100 transition-all shadow-sm">
+                        <i class="fa-solid fa-share-nodes text-primary-dark text-sm"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="bg-white bg-opacity-80 rounded-xl p-3">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs font-semibold text-gray-600">OVERALL PROGRESS</span>
+                    <button class="text-xs text-primary font-semibold">View Breakdown</button>
+                </div>
+                <div class="relative w-full h-3 bg-gray-200 rounded-full overflow-hidden">
+                    <div class="absolute inset-0 flex">
+                        <div class="progress-fill h-full bg-secondary rounded-full" style="--progress-width: 45%; width: 45%;"></div>
+                        <div class="progress-fill h-full bg-primary rounded-full" style="--progress-width: 30%; width: 30%; animation-delay: 0.3s;"></div>
+                        <div class="progress-fill h-full bg-accent rounded-full" style="--progress-width: 10%; width: 10%; animation-delay: 0.6s;"></div>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between mt-2">
+                    <span class="text-lg font-bold text-primary-dark">85%</span>
+                    <div class="flex items-center gap-3 text-xs">
+                        <span class="text-secondary font-semibold"><i class="fa-solid fa-circle text-[6px] mr-1"></i>Endurance</span>
+                        <span class="text-primary font-semibold"><i class="fa-solid fa-circle text-[6px] mr-1"></i>Strength</span>
+                        <span class="text-accent font-semibold"><i class="fa-solid fa-circle text-[6px] mr-1"></i>Flexibility</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main id="main-content" class="flex-1 overflow-y-auto pb-20">
+            <section id="hero-welcome-section" class="px-4 py-4 animate-slide-up">
+                <div class="bg-gradient-to-br from-primary to-primary-dark rounded-2xl p-4 shadow-lg relative overflow-hidden">
+                    <div class="absolute top-2 right-2 animate-sparkle">
+                        <i class="fa-solid fa-sparkles text-accent text-2xl opacity-60"></i>
+                    </div>
+                    <div class="absolute bottom-2 left-2 animate-sparkle" style="animation-delay: 0.5s;">
+                        <i class="fa-solid fa-star text-accent text-xl opacity-40"></i>
+                    </div>
+                    <h2 class="text-lg font-bold text-white mb-1">Your Achievements</h2>
+                    <p class="text-sm text-white text-opacity-90 mb-2">Congrats! <span class="font-bold text-accent">-2kg</span> this month</p>
+                    <div class="bg-white bg-opacity-20 rounded-lg px-3 py-2 inline-block">
+                        <span class="text-xs font-semibold text-white">Keep pushing! 🎉</span>
+                    </div>
+                </div>
+            </section>
+
+            <section id="progress-tracking-section" class="px-4 py-3 animate-slide-up" style="animation-delay: 0.1s;">
+                <h3 class="text-base font-bold text-gray-900 mb-3">Progress Tracking</h3>
+                <div class="bg-white rounded-2xl p-4 shadow-sm">
+                    <div id="progress-chart" style="height: 200px;"></div>
+                    <div class="grid grid-cols-3 gap-2 mt-4 pt-3 border-t border-gray-100">
+                        <div class="text-center">
+                            <div class="flex items-center justify-center gap-1 mb-1">
+                                <i class="fa-solid fa-weight-scale text-primary text-sm"></i>
+                                <span class="text-xs font-semibold text-gray-600">Weight</span>
+                            </div>
+                            <div class="text-sm font-bold text-gray-900">70→68kg</div>
+                            <div class="text-xs text-secondary flex items-center justify-center gap-1">
+                                <i class="fa-solid fa-arrow-down"></i>
+                                <span>-2kg</span>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <div class="flex items-center justify-center gap-1 mb-1">
+                                <i class="fa-solid fa-chart-simple text-primary text-sm"></i>
+                                <span class="text-xs font-semibold text-gray-600">Body Fat</span>
+                            </div>
+                            <div class="text-sm font-bold text-gray-900">21→18%</div>
+                            <div class="text-xs text-secondary flex items-center justify-center gap-1">
+                                <i class="fa-solid fa-arrow-down"></i>
+                                <span>-3.2%</span>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <div class="flex items-center justify-center gap-1 mb-1">
+                                <i class="fa-solid fa-dumbbell text-primary text-sm"></i>
+                                <span class="text-xs font-semibold text-gray-600">Muscle</span>
+                            </div>
+                            <div class="text-sm font-bold text-gray-900">+1.8kg</div>
+                            <div class="text-xs text-accent flex items-center justify-center gap-1">
+                                <i class="fa-solid fa-arrow-up"></i>
+                                <span>Gain</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-4 shadow-sm mt-3">
+                    <div class="text-xs font-semibold text-gray-600 mb-3 flex items-center justify-between">
+                        <span>SKILL BARS</span>
+                        <button class="text-primary">Tap for trends</button>
+                    </div>
+                    <div class="space-y-3">
+                        <div>
+                            <div class="flex items-center justify-between mb-1">
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-person-running text-secondary"></i>
+                                    <span class="text-sm font-semibold text-gray-700">Endurance</span>
+                                </div>
+                                <span class="text-sm font-bold text-secondary">82/100</span>
+                            </div>
+                            <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
+                                <div class="progress-fill h-full bg-secondary rounded-full" style="--progress-width: 82%; animation-delay: 0.2s;"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex items-center justify-between mb-1">
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-dumbbell text-accent"></i>
+                                    <span class="text-sm font-semibold text-gray-700">Strength</span>
+                                </div>
+                                <span class="text-sm font-bold text-accent">75/100</span>
+                            </div>
+                            <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
+                                <div class="progress-fill h-full bg-accent rounded-full" style="--progress-width: 75%; animation-delay: 0.4s;"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex items-center justify-between mb-1">
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-person-praying text-primary"></i>
+                                    <span class="text-sm font-semibold text-gray-700">Flexibility</span>
+                                </div>
+                                <span class="text-sm font-bold text-primary">68/100</span>
+                            </div>
+                            <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
+                                <div class="progress-fill h-full bg-primary rounded-full" style="--progress-width: 68%; animation-delay: 0.6s;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="achievements-section" class="px-4 py-3 animate-slide-up" style="animation-delay: 0.2s;">
+                <div class="flex items-center justify-between mb-3">
+                    <h3 class="text-base font-bold text-gray-900">Achievements</h3>
+                    <button class="text-xs font-semibold text-primary">View All</button>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="bg-gradient-to-br from-orange-400 to-orange-500 rounded-xl p-3 shadow-md relative overflow-hidden">
+                        <div class="absolute top-1 right-1 animate-sparkle">
+                            <i class="fa-solid fa-certificate text-white text-opacity-30 text-3xl"></i>
+                        </div>
+                        <div class="relative z-10">
+                            <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center mb-2">
+                                <i class="fa-solid fa-medal text-orange-500 text-xl"></i>
+                            </div>
+                            <div class="text-xs font-semibold text-white text-opacity-90 mb-0.5">Streak</div>
+                            <div class="text-lg font-bold text-white">12-Day</div>
+                            <div class="text-xs text-white text-opacity-80">Unlocked!</div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-green-400 to-green-500 rounded-xl p-3 shadow-md relative overflow-hidden">
+                        <div class="absolute top-1 right-1 animate-sparkle" style="animation-delay: 0.3s;">
+                            <i class="fa-solid fa-trophy text-white text-opacity-30 text-3xl"></i>
+                        </div>
+                        <div class="relative z-10">
+                            <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center mb-2">
+                                <i class="fa-solid fa-trophy text-green-500 text-xl"></i>
+                            </div>
+                            <div class="text-xs font-semibold text-white text-opacity-90 mb-0.5">Milestone</div>
+                            <div class="text-lg font-bold text-white">5K Best</div>
+                            <div class="text-xs text-white text-opacity-80">New Record!</div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-cyan-400 to-cyan-500 rounded-xl p-3 shadow-md relative overflow-hidden">
+                        <div class="absolute top-1 right-1 animate-sparkle" style="animation-delay: 0.6s;">
+                            <i class="fa-solid fa-star text-white text-opacity-30 text-3xl"></i>
+                        </div>
+                        <div class="relative z-10">
+                            <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center mb-2">
+                                <i class="fa-solid fa-dumbbell text-cyan-500 text-xl"></i>
+                            </div>
+                            <div class="text-xs font-semibold text-white text-opacity-90 mb-0.5">Strength</div>
+                            <div class="text-lg font-bold text-white">+15%</div>
+                            <div class="text-xs text-white text-opacity-80">Improvement</div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-emerald-400 to-emerald-500 rounded-xl p-3 shadow-md relative overflow-hidden">
+                        <div class="absolute top-1 right-1 animate-sparkle" style="animation-delay: 0.9s;">
+                            <i class="fa-solid fa-heart text-white text-opacity-30 text-3xl"></i>
+                        </div>
+                        <div class="relative z-10">
+                            <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center mb-2">
+                                <i class="fa-solid fa-heart-pulse text-emerald-500 text-xl"></i>
+                            </div>
+                            <div class="text-xs font-semibold text-white text-opacity-90 mb-0.5">Cardio</div>
+                            <div class="text-lg font-bold text-white">25hrs</div>
+                            <div class="text-xs text-white text-opacity-80">This Month</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-3">
+                    <button class="text-sm font-semibold text-primary">Collect & Share! <i class="fa-solid fa-arrow-right ml-1"></i></button>
+                </div>
+            </section>
+
+            <section id="ai-report-section" class="px-4 py-3 animate-slide-up" style="animation-delay: 0.3s;">
+                <div class="bg-primary-dark rounded-2xl p-4 shadow-md">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="text-base font-bold text-white">AI Report</h3>
+                        <button class="bg-white bg-opacity-20 hover:bg-opacity-30 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition-all flex items-center gap-1">
+                            <i class="fa-solid fa-rotate text-xs"></i>
+                            Generate
+                        </button>
+                    </div>
+                    
+                    <div class="space-y-2 mb-3">
+                        <div class="flex items-start gap-2">
+                            <i class="fa-solid fa-circle-check text-accent text-sm mt-0.5"></i>
+                            <p class="text-sm text-white leading-relaxed">85% completion: Basketball accuracy +10%</p>
+                        </div>
+                        <div class="flex items-start gap-2">
+                            <i class="fa-solid fa-shield-halved text-secondary text-sm mt-0.5"></i>
+                            <p class="text-sm text-white leading-relaxed">Low knee risk 8% for soccer activities</p>
+                        </div>
+                        <div class="flex items-start gap-2">
+                            <i class="fa-solid fa-lightbulb text-accent text-sm mt-0.5"></i>
+                            <p class="text-sm text-white leading-relaxed">Tip: Badminton warm-ups cut shoulder strain</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white bg-opacity-10 rounded-xl p-3 mb-3">
+                        <div class="text-xs font-semibold text-white text-opacity-90 mb-2">Risk Assessment</div>
+                        <div id="risk-gauge" style="height: 140px;"></div>
+                    </div>
+
+                    <div class="bg-gradient-to-r from-accent to-orange-400 rounded-xl p-3">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-bullseye text-white text-xl"></i>
+                            <div>
+                                <div class="text-xs font-semibold text-white text-opacity-90">Next Goal</div>
+                                <div class="text-sm font-bold text-white">16% body fat – All-Rounder badge!</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="photo-compare-section" class="px-4 py-3 animate-slide-up" style="animation-delay: 0.4s;">
+                <h3 class="text-base font-bold text-gray-900 mb-3">Photo Compare</h3>
+                <div class="bg-white rounded-2xl p-4 shadow-sm">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-xs font-semibold text-gray-600">BEFORE / AFTER</span>
+                        <button class="text-xs font-semibold text-primary flex items-center gap-1">
+                            <i class="fa-solid fa-camera"></i>
+                            Upload New
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="relative">
+                            <div class="h-48 bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl overflow-hidden">
+                                <img class="w-full h-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/8b3babdb23-80add24ed43a0e5eac0f.png" alt="fitness before photo male 70kg body composition January" />
+                            </div>
+                            <div class="absolute bottom-2 left-2 right-2 bg-black bg-opacity-70 rounded-lg px-2 py-1">
+                                <div class="text-xs font-semibold text-white">Jan 2024</div>
+                                <div class="text-xs text-white text-opacity-80">70kg / 21%</div>
+                            </div>
+                        </div>
+                        <div class="relative">
+                            <div class="h-48 bg-gradient-to-br from-primary-dark to-primary rounded-xl overflow-hidden">
+                                <img class="w-full h-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/9aae36c6e9-9f5a93a5a77ac852ecce.png" alt="fitness after photo male 68kg lean body composition February" />
+                            </div>
+                            <div class="absolute bottom-2 left-2 right-2 bg-black bg-opacity-70 rounded-lg px-2 py-1">
+                                <div class="text-xs font-semibold text-white">Feb 2024</div>
+                                <div class="text-xs text-white text-opacity-80">68kg / 18%</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-secondary bg-opacity-20 border border-secondary rounded-lg px-3 py-2 mt-3">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-wand-magic-sparkles text-secondary"></i>
+                            <span class="text-xs font-semibold text-gray-700">AI Analysis: Sharper abs definition!</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="sports-zone-section" class="px-4 py-3 pb-6 animate-slide-up" style="animation-delay: 0.5s;">
+                <h3 class="text-base font-bold text-gray-900 mb-3">Sports Zone</h3>
+                <div class="flex gap-2 mb-3 overflow-x-auto pb-2">
+                    <button class="sport-tab active flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-xl font-semibold text-sm whitespace-nowrap shadow-md" data-sport="basketball">
+                        <i class="fa-solid fa-basketball"></i>
+                        Basketball
+                    </button>
+                    <button class="sport-tab flex items-center gap-2 bg-white text-gray-600 px-4 py-2 rounded-xl font-semibold text-sm whitespace-nowrap shadow-sm" data-sport="soccer">
+                        <i class="fa-solid fa-futbol"></i>
+                        Soccer
+                    </button>
+                    <button class="sport-tab flex items-center gap-2 bg-white text-gray-600 px-4 py-2 rounded-xl font-semibold text-sm whitespace-nowrap shadow-sm" data-sport="badminton">
+                        <i class="fa-solid fa-baseball"></i>
+                        Badminton
+                    </button>
+                </div>
+
+                <div id="basketball-content" class="sport-content bg-white rounded-2xl p-4 shadow-sm">
+                    <div class="space-y-3">
+                        <div class="border-l-4 border-primary pl-3">
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="text-sm font-bold text-gray-900">Shooting Accuracy</span>
+                                <div class="flex items-center gap-1">
+                                    <span class="text-xs text-gray-500">65%</span>
+                                    <i class="fa-solid fa-arrow-right text-primary text-xs"></i>
+                                    <span class="text-sm font-bold text-primary">78%</span>
+                                </div>
+                            </div>
+                            <p class="text-xs text-gray-600">Arm drills boost coordination</p>
+                        </div>
+                        <div class="border-l-4 border-secondary pl-3">
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="text-sm font-bold text-gray-900">Jump Height</span>
+                                <div class="flex items-center gap-1">
+                                    <i class="fa-solid fa-arrow-up text-secondary text-xs"></i>
+                                    <span class="text-sm font-bold text-secondary">+8cm</span>
+                                </div>
+                            </div>
+                            <p class="text-xs text-gray-600">Explosive power improved significantly</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="soccer-content" class="sport-content hidden bg-white rounded-2xl p-4 shadow-sm">
+                    <div class="space-y-3">
+                        <div class="border-l-4 border-primary pl-3">
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="text-sm font-bold text-gray-900">Kick Power</span>
+                                <div class="flex items-center gap-1">
+                                    <i class="fa-solid fa-arrow-up text-primary text-xs"></i>
+                                    <span class="text-sm font-bold text-primary">+12%</span>
+                                </div>
+                            </div>
+                            <p class="text-xs text-gray-600">Legs lower injury risk from twists</p>
+                        </div>
+                        <div class="border-l-4 border-secondary pl-3">
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="text-sm font-bold text-gray-900">Endurance</span>
+                                <div class="flex items-center gap-1">
+                                    <span class="text-xs text-gray-500">82min</span>
+                                    <i class="fa-solid fa-arrow-right text-secondary text-xs"></i>
+                                    <span class="text-sm font-bold text-secondary">90min</span>
+                                </div>
+                            </div>
+                            <p class="text-xs text-gray-600">Full match capacity achieved</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="badminton-content" class="sport-content hidden bg-white rounded-2xl p-4 shadow-sm">
+                    <div class="space-y-3">
+                        <div class="border-l-4 border-primary pl-3">
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="text-sm font-bold text-gray-900">Shoulder Flexibility</span>
+                                <div class="flex items-center gap-1">
+                                    <i class="fa-solid fa-arrow-up text-primary text-xs"></i>
+                                    <span class="text-sm font-bold text-primary">+15%</span>
+                                </div>
+                            </div>
+                            <p class="text-xs text-gray-600">Warm-ups reduce strain effectively</p>
+                        </div>
+                        <div class="border-l-4 border-secondary pl-3">
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="text-sm font-bold text-gray-900">Reaction Time</span>
+                                <div class="flex items-center gap-1">
+                                    <span class="text-xs text-gray-500">0.35s</span>
+                                    <i class="fa-solid fa-arrow-right text-secondary text-xs"></i>
+                                    <span class="text-sm font-bold text-secondary">0.28s</span>
+                                </div>
+                            </div>
+                            <p class="text-xs text-gray-600">Faster reflexes for quick shots</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <nav id="footer" class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-5 py-3 shadow-lg z-50" style="width: 375px; margin: 0 auto;">
+            <div class="flex items-center justify-between">
+                <button class="flex flex-col items-center gap-1 flex-1 nav-item" onclick="window.location.href='home.html'">
+                    <div class="w-10 h-10 bg-gray-100 rounded-xl flex items-center justify-center hover:bg-gray-200 transition-all">
+                        <i class="fa-solid fa-home text-gray-600 text-lg"></i>
+                    </div>
+                    <span class="text-xs font-medium text-gray-600">Home</span>
+                </button>
+                <button class="flex flex-col items-center gap-1 flex-1 nav-item" onclick="window.location.href='plan.html'">
+                    <div class="w-10 h-10 bg-gray-100 rounded-xl flex items-center justify-center hover:bg-gray-200 transition-all">
+                        <i class="fa-solid fa-calendar-days text-gray-600 text-lg"></i>
+                    </div>
+                    <span class="text-xs font-medium text-gray-600">Plan</span>
+                </button>
+                <button class="flex flex-col items-center gap-1 flex-1 nav-item active" onclick="window.location.href='result.html'">
+                    <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center">
+                        <i class="fa-solid fa-chart-line text-white text-lg"></i>
+                    </div>
+                    <span class="text-xs font-semibold text-primary">Results</span>
+                </button>
+                <button class="flex flex-col items-center gap-1 flex-1 nav-item" onclick="window.location.href='Q1.html'">
+                    <div class="w-10 h-10 bg-gray-100 rounded-xl flex items-center justify-center hover:bg-gray-200 transition-all">
+                        <i class="fa-solid fa-gear text-gray-600 text-lg"></i>
+                    </div>
+                    <span class="text-xs font-medium text-gray-600">Settings</span>
+                </button>
+            </div>
+        </nav>
+    </div>
+
+    <script>
+        window.addEventListener('load', function() {
+            try {
+                const progressData = [{
+                    type: 'scatter',
+                    mode: 'lines',
+                    name: 'Weight',
+                    x: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+                    y: [70, 69.5, 69, 68],
+                    line: { color: '#26C6DA', width: 3 },
+                    marker: { size: 8, color: '#26C6DA' }
+                }, {
+                    type: 'scatter',
+                    mode: 'lines',
+                    name: 'Body Fat %',
+                    x: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+                    y: [21, 20, 19, 18],
+                    line: { color: '#A5D6A7', width: 3 },
+                    marker: { size: 8, color: '#A5D6A7' },
+                    yaxis: 'y2'
+                }];
+
+                const progressLayout = {
+                    margin: { t: 20, r: 50, b: 40, l: 50 },
+                    plot_bgcolor: '#FFFFFF',
+                    paper_bgcolor: '#FFFFFF',
+                    xaxis: { 
+                        showgrid: false,
+                        tickfont: { size: 10, color: '#6B7280', family: 'Inter' }
+                    },
+                    yaxis: { 
+                        title: 'Weight (kg)',
+                        showgrid: true,
+                        gridcolor: '#F3F4F6',
+                        tickfont: { size: 10, color: '#6B7280', family: 'Inter' },
+                        titlefont: { size: 11, color: '#6B7280', family: 'Inter' }
+                    },
+                    yaxis2: {
+                        title: 'Body Fat %',
+                        overlaying: 'y',
+                        side: 'right',
+                        showgrid: false,
+                        tickfont: { size: 10, color: '#6B7280', family: 'Inter' },
+                        titlefont: { size: 11, color: '#6B7280', family: 'Inter' }
+                    },
+                    showlegend: true,
+                    legend: {
+                        x: 0,
+                        y: 1.1,
+                        orientation: 'h',
+                        font: { size: 10, family: 'Inter' }
+                    }
+                };
+
+                const progressConfig = {
+                    responsive: true,
+                    displayModeBar: false,
+                    displaylogo: false
+                };
+
+                Plotly.newPlot('progress-chart', progressData, progressLayout, progressConfig);
+            } catch(e) {
+                document.getElementById('progress-chart').innerHTML = '<div class="flex items-center justify-center h-full text-gray-400 text-sm">Chart unavailable</div>';
+            }
+
+            try {
+                const riskData = [{
+                    type: 'indicator',
+                    mode: 'gauge+number',
+                    value: 8,
+                    number: {
+                        suffix: '%',
+                        font: { size: 24, color: '#A5D6A7', family: 'Inter', weight: 700 }
+                    },
+                    gauge: {
+                        axis: { 
+                            range: [0, 100],
+                            tickwidth: 1,
+                            tickcolor: '#FFFFFF',
+                            tickfont: { size: 8, color: '#FFFFFF' }
+                        },
+                        bar: { color: '#A5D6A7', thickness: 0.6 },
+                        bgcolor: 'rgba(255,255,255,0.2)',
+                        borderwidth: 0,
+                        steps: [
+                            { range: [0, 30], color: 'rgba(165,214,167,0.3)' },
+                            { range: [30, 60], color: 'rgba(255,202,40,0.3)' },
+                            { range: [60, 100], color: 'rgba(239,68,68,0.3)' }
+                        ]
+                    }
+                }];
+
+                const riskLayout = {
+                    margin: { t: 10, r: 20, b: 10, l: 20 },
+                    plot_bgcolor: 'transparent',
+                    paper_bgcolor: 'transparent',
+                    font: { family: 'Inter', color: '#FFFFFF' }
+                };
+
+                const riskConfig = {
+                    responsive: true,
+                    displayModeBar: false,
+                    displaylogo: false
+                };
+
+                Plotly.newPlot('risk-gauge', riskData, riskLayout, riskConfig);
+            } catch(e) {
+                document.getElementById('risk-gauge').innerHTML = '<div class="flex items-center justify-center h-full text-white text-sm">Gauge unavailable</div>';
+            }
+
+            document.querySelectorAll('.sport-tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    document.querySelectorAll('.sport-tab').forEach(t => {
+                        t.classList.remove('active', 'bg-primary', 'text-white', 'shadow-md');
+                        t.classList.add('bg-white', 'text-gray-600', 'shadow-sm');
+                    });
+                    
+                    this.classList.add('active', 'bg-primary', 'text-white', 'shadow-md');
+                    this.classList.remove('bg-white', 'text-gray-600', 'shadow-sm');
+                    
+                    const sport = this.dataset.sport;
+                    document.querySelectorAll('.sport-content').forEach(content => {
+                        content.classList.add('hidden');
+                    });
+                    document.getElementById(sport + '-content').classList.remove('hidden');
+                });
+            });
+
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    document.querySelectorAll('.nav-item').forEach(nav => {
+                        nav.classList.remove('active');
+                        const icon = nav.querySelector('div');
+                        const text = nav.querySelector('span');
+                        const i = nav.querySelector('i');
+                        
+                        icon.classList.remove('bg-primary');
+                        icon.classList.add('bg-gray-100');
+                        i.classList.remove('text-white');
+                        i.classList.add('text-gray-600');
+                        text.classList.remove('text-primary', 'font-semibold');
+                        text.classList.add('text-gray-600', 'font-medium');
+                    });
+                    
+                    this.classList.add('active');
+                    const icon = this.querySelector('div');
+                    const text = this.querySelector('span');
+                    const i = this.querySelector('i');
+                    
+                    icon.classList.remove('bg-gray-100');
+                    icon.classList.add('bg-primary');
+                    i.classList.remove('text-gray-600');
+                    i.classList.add('text-white');
+                    text.classList.remove('text-gray-600', 'font-medium');
+                    text.classList.add('text-primary', 'font-semibold');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness Profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script> window.FontAwesomeConfig = { autoReplaceSvg: 'nest'};</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>::-webkit-scrollbar { display: none;}
+    @keyframes slideInRight {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes ripple {
+        0% { transform: scale(0); opacity: 1; }
+        100% { transform: scale(4); opacity: 0; }
+    }
+    @keyframes pulse {
+        0%, 100% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7); }
+        50% { box-shadow: 0 0 0 10px rgba(40, 167, 69, 0); }
+    }
+    @keyframes confetti {
+        0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+        100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+    }
+    @keyframes toastSlideIn {
+        from { transform: translateY(100px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+    .slide-in { animation: slideInRight 300ms ease-in-out; }
+    .ripple-effect { position: relative; overflow: hidden; }
+    .ripple-effect::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 20px;
+        height: 20px;
+        background: rgba(0, 123, 255, 0.5);
+        border-radius: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        pointer-events: none;
+    }
+    .ripple-effect.active::after { animation: ripple 600ms ease-out; }
+    .pulse-green { animation: pulse 2s infinite; }
+    .confetti-piece {
+        position: fixed;
+        width: 10px;
+        height: 10px;
+        z-index: 9999;
+        animation: confetti 3s ease-in-out forwards;
+    }
+    .toast-message {
+        animation: toastSlideIn 400ms ease-out;
+    }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'roboto': ['Roboto', 'sans-serif']
+                    },
+                    colors: {
+                        'primary-blue': '#007BFF',
+                        'accent-green': '#28A745',
+                        'light-gray': '#F2F2F2'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-roboto bg-white overflow-hidden" style="width: 375px; height: 812px; margin: 0 auto;">
+
+<div id="app-container" class="relative w-full h-full flex flex-col">
+    
+    <header id="header" class="fixed top-0 left-0 right-0 bg-white shadow-sm z-50" style="height: 15%;">
+        <div class="flex items-center justify-center pt-4 pb-2 px-4">
+            <i class="fa-solid fa-dumbbell text-primary-blue text-xl mr-2"></i>
+            <h1 class="text-lg font-bold text-primary-blue">Fitness-Flow</h1>
+        </div>
+        <div class="px-4 pb-3">
+            <div class="flex items-center justify-between mb-1">
+                <span class="text-xs text-gray-600">Profile Completion</span>
+                <span id="progress-text" class="text-xs font-medium text-gray-800">1/3</span>
+            </div>
+            <div class="w-full h-2 bg-light-gray rounded-full overflow-hidden cursor-pointer" id="progress-bar-container">
+                <div id="progress-bar" class="h-full bg-accent-green transition-all duration-300 rounded-full" style="width: 33.33%"></div>
+            </div>
+        </div>
+    </header>
+
+    <main id="main-content" class="flex-1 overflow-y-auto pt-[15%]" style="height: 85%;">
+        
+        <section id="tab-personality" class="min-h-full px-4 py-6 bg-white">
+            <div class="text-center mb-6">
+                <div class="text-4xl mb-3">✨</div>
+                <h2 class="text-lg font-bold text-primary-blue mb-1">What's your personality?</h2>
+                <p class="text-sm text-gray-500">Help us match your training style</p>
+            </div>
+            
+            <div class="space-y-3">
+                <div class="personality-option ripple-effect bg-white border-2 border-gray-200 rounded-xl p-4 cursor-pointer transition-all hover:border-primary-blue" data-value="active-extroverted">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-6 h-6 rounded-full border-2 border-gray-300 mr-3 mt-1 flex items-center justify-center option-radio">
+                            <div class="w-3 h-3 rounded-full bg-accent-green hidden check-mark"></div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">Active / Extroverted</div>
+                            <div class="text-sm text-gray-500 mt-1">Group classes, social workouts</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="personality-option ripple-effect bg-white border-2 border-gray-200 rounded-xl p-4 cursor-pointer transition-all hover:border-primary-blue" data-value="quiet-introverted">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-6 h-6 rounded-full border-2 border-gray-300 mr-3 mt-1 flex items-center justify-center option-radio">
+                            <div class="w-3 h-3 rounded-full bg-accent-green hidden check-mark"></div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">Quiet / Introverted</div>
+                            <div class="text-sm text-gray-500 mt-1">Solo training, peaceful environment</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="personality-option ripple-effect bg-white border-2 border-gray-200 rounded-xl p-4 cursor-pointer transition-all hover:border-primary-blue" data-value="adventurous-challenging">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-6 h-6 rounded-full border-2 border-gray-300 mr-3 mt-1 flex items-center justify-center option-radio">
+                            <div class="w-3 h-3 rounded-full bg-accent-green hidden check-mark"></div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">Adventurous / Challenging</div>
+                            <div class="text-sm text-gray-500 mt-1">High-intensity, push limits</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="personality-option ripple-effect bg-white border-2 border-gray-200 rounded-xl p-4 cursor-pointer transition-all hover:border-primary-blue" data-value="steady-balanced">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-6 h-6 rounded-full border-2 border-gray-300 mr-3 mt-1 flex items-center justify-center option-radio">
+                            <div class="w-3 h-3 rounded-full bg-accent-green hidden check-mark"></div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">Steady / Balanced</div>
+                            <div class="text-sm text-gray-500 mt-1">Consistent routine, moderate pace</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a href="#" class="skip-tab block text-center text-sm text-gray-500 hover:text-gray-700 mt-6">Skip</a>
+        </section>
+
+        <section id="tab-goals" class="min-h-full px-4 py-6 bg-white hidden">
+            <div class="text-center mb-6">
+                <div class="text-4xl mb-3">🎯</div>
+                <h2 class="text-lg font-bold text-primary-blue mb-1">What's your fitness goal?</h2>
+                <p class="text-sm text-gray-500">Choose your primary objective</p>
+            </div>
+            
+            <div class="space-y-3">
+                <div class="goal-option ripple-effect bg-white border-2 border-gray-200 rounded-xl p-4 cursor-pointer transition-all hover:border-primary-blue" data-value="fat-loss">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-6 h-6 rounded-full border-2 border-gray-300 mr-3 mt-1 flex items-center justify-center option-radio">
+                            <div class="w-3 h-3 rounded-full bg-accent-green hidden check-mark"></div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">Fat loss & body sculpting</div>
+                            <div class="text-sm text-gray-500 mt-1">Reduce body fat, enhance definition</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="goal-option ripple-effect bg-white border-2 border-gray-200 rounded-xl p-4 cursor-pointer transition-all hover:border-primary-blue" data-value="muscle-build">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-6 h-6 rounded-full border-2 border-gray-300 mr-3 mt-1 flex items-center justify-center option-radio">
+                            <div class="w-3 h-3 rounded-full bg-accent-green hidden check-mark"></div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">Build muscle and sculpt physique</div>
+                            <div class="text-sm text-gray-500 mt-1">Increase muscle mass, achieve ideal physique</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="goal-option ripple-effect bg-white border-2 border-gray-200 rounded-xl p-4 cursor-pointer transition-all hover:border-primary-blue" data-value="endurance">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-6 h-6 rounded-full border-2 border-gray-300 mr-3 mt-1 flex items-center justify-center option-radio">
+                            <div class="w-3 h-3 rounded-full bg-accent-green hidden check-mark"></div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">Boost endurance</div>
+                            <div class="text-sm text-gray-500 mt-1">Improve cardio fitness, running/cycling</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="goal-option ripple-effect bg-white border-2 border-gray-200 rounded-xl p-4 cursor-pointer transition-all hover:border-primary-blue" data-value="health">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-6 h-6 rounded-full border-2 border-gray-300 mr-3 mt-1 flex items-center justify-center option-radio">
+                            <div class="w-3 h-3 rounded-full bg-accent-green hidden check-mark"></div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">Maintain health</div>
+                            <div class="text-sm text-gray-500 mt-1">Preserve vitality, prevent illness</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="goal-option ripple-effect bg-white border-2 border-gray-200 rounded-xl p-4 cursor-pointer transition-all hover:border-primary-blue" data-value="competition">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-6 h-6 rounded-full border-2 border-gray-300 mr-3 mt-1 flex items-center justify-center option-radio">
+                            <div class="w-3 h-3 rounded-full bg-accent-green hidden check-mark"></div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">Competition prep</div>
+                            <div class="text-sm text-gray-500 mt-1">Event-specific training, professional guidance</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a href="#" class="skip-tab block text-center text-sm text-gray-500 hover:text-gray-700 mt-6">Skip</a>
+        </section>
+
+        <section id="tab-experience" class="min-h-full px-4 py-6 bg-white hidden">
+            <div class="text-center mb-6">
+                <div class="text-4xl mb-3">💪</div>
+                <h2 class="text-lg font-bold text-primary-blue mb-1">What's your fitness experience?</h2>
+                <p class="text-sm text-gray-500">We'll customize your training intensity</p>
+            </div>
+            
+            <div class="space-y-3">
+                <div class="experience-option ripple-effect bg-white border-2 border-gray-200 rounded-xl p-4 cursor-pointer transition-all hover:border-primary-blue" data-value="beginner">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-6 h-6 rounded-full border-2 border-gray-300 mr-3 mt-1 flex items-center justify-center option-radio">
+                            <div class="w-3 h-3 rounded-full bg-accent-green hidden check-mark"></div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">Beginner (0-6 months)</div>
+                            <div class="text-sm text-gray-500 mt-1">New to fitness, requires foundational guidance</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="experience-option ripple-effect bg-white border-2 border-gray-200 rounded-xl p-4 cursor-pointer transition-all hover:border-primary-blue" data-value="intermediate">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-6 h-6 rounded-full border-2 border-gray-300 mr-3 mt-1 flex items-center justify-center option-radio">
+                            <div class="w-3 h-3 rounded-full bg-accent-green hidden check-mark"></div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">Intermediate (6 months-2 years)</div>
+                            <div class="text-sm text-gray-500 mt-1">Basic knowledge, capable of independent training</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="experience-option ripple-effect bg-white border-2 border-gray-200 rounded-xl p-4 cursor-pointer transition-all hover:border-primary-blue" data-value="advanced">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-6 h-6 rounded-full border-2 border-gray-300 mr-3 mt-1 flex items-center justify-center option-radio">
+                            <div class="w-3 h-3 rounded-full bg-accent-green hidden check-mark"></div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">Advanced (2+ years)</div>
+                            <div class="text-sm text-gray-500 mt-1">Experienced, seeking advanced challenges</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="experience-option ripple-effect bg-white border-2 border-gray-200 rounded-xl p-4 cursor-pointer transition-all hover:border-primary-blue" data-value="none">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-6 h-6 rounded-full border-2 border-gray-300 mr-3 mt-1 flex items-center justify-center option-radio">
+                            <div class="w-3 h-3 rounded-full bg-accent-green hidden check-mark"></div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">No Experience</div>
+                            <div class="text-sm text-gray-500 mt-1">Starting from scratch with super-friendly tutorials</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a href="#" class="skip-tab block text-center text-sm text-gray-500 hover:text-gray-700 mt-6">Skip</a>
+        </section>
+
+    </main>
+
+</div>
+
+<script>
+window.addEventListener('load', function() {
+    let currentTab = 1;
+    let userData = {
+        personality: null,
+        goal: null,
+        experience: null
+    };
+
+    const progressBar = document.getElementById('progress-bar');
+    const progressText = document.getElementById('progress-text');
+    const mainContent = document.getElementById('main-content');
+
+    const tabPersonality = document.getElementById('tab-personality');
+    const tabGoals = document.getElementById('tab-goals');
+    const tabExperience = document.getElementById('tab-experience');
+
+    function updateProgress() {
+        const percentage = (currentTab / 3) * 100;
+        progressBar.style.width = percentage + '%';
+        progressText.textContent = currentTab + '/3';
+    }
+
+    function showTab(tabNumber) {
+        tabPersonality.classList.add('hidden');
+        tabGoals.classList.add('hidden');
+        tabExperience.classList.add('hidden');
+
+        mainContent.scrollTop = 0;
+
+        if (tabNumber === 1) {
+            tabPersonality.classList.remove('hidden');
+        } else if (tabNumber === 2) {
+            tabGoals.classList.remove('hidden');
+            tabGoals.classList.add('slide-in');
+        } else if (tabNumber === 3) {
+            tabExperience.classList.remove('hidden');
+            tabExperience.classList.add('slide-in');
+        }
+    }
+
+    function showSuccessToast() {
+        const toast = document.createElement('div');
+        toast.className = 'toast-message fixed bottom-8 left-1/2 transform -translate-x-1/2 bg-accent-green text-white px-6 py-4 rounded-xl shadow-lg z-50 pulse-green';
+        toast.innerHTML = '<div class="flex items-center"><i class="fa-solid fa-check-circle mr-3 text-xl"></i><div><div class="font-medium">Profile complete!</div><div class="text-sm">Building your personalized plan...</div></div></div>';
+        document.body.appendChild(toast);
+        
+        setTimeout(() => toast.remove(), 2500);
+    }
+
+    function completeOnboarding() {
+        createConfetti();
+        showSuccessToast();
+        
+        setTimeout(() => {
+            window.location.href = '#dashboard';
+        }, 2500);
+    }
+
+    document.querySelectorAll('.personality-option').forEach(option => {
+        option.addEventListener('click', function() {
+            document.querySelectorAll('.personality-option').forEach(opt => {
+                opt.classList.remove('border-accent-green');
+                opt.classList.add('border-gray-200');
+                opt.querySelector('.check-mark').classList.add('hidden');
+            });
+
+            this.classList.add('active', 'border-accent-green');
+            this.classList.remove('border-gray-200');
+            this.querySelector('.check-mark').classList.remove('hidden');
+
+            userData.personality = this.dataset.value;
+
+            setTimeout(() => {
+                this.classList.remove('active');
+                currentTab = 2;
+                updateProgress();
+                showTab(2);
+            }, 300);
+        });
+    });
+
+    document.querySelectorAll('.goal-option').forEach(option => {
+        option.addEventListener('click', function() {
+            document.querySelectorAll('.goal-option').forEach(opt => {
+                opt.classList.remove('border-accent-green');
+                opt.classList.add('border-gray-200');
+                opt.querySelector('.check-mark').classList.add('hidden');
+            });
+
+            this.classList.add('active', 'border-accent-green');
+            this.classList.remove('border-gray-200');
+            this.querySelector('.check-mark').classList.remove('hidden');
+
+            userData.goal = this.dataset.value;
+
+            setTimeout(() => {
+                this.classList.remove('active');
+                currentTab = 3;
+                updateProgress();
+                showTab(3);
+            }, 300);
+        });
+    });
+
+    document.querySelectorAll('.experience-option').forEach(option => {
+        option.addEventListener('click', function() {
+            document.querySelectorAll('.experience-option').forEach(opt => {
+                opt.classList.remove('border-accent-green');
+                opt.classList.add('border-gray-200');
+                opt.querySelector('.check-mark').classList.add('hidden');
+            });
+
+            this.classList.add('active', 'border-accent-green');
+            this.classList.remove('border-gray-200');
+            this.querySelector('.check-mark').classList.remove('hidden');
+
+            userData.experience = this.dataset.value;
+            
+            // 保存数据到 localStorage
+            localStorage.setItem('q2_personality', userData.personality);
+            localStorage.setItem('q2_goal', userData.goal);
+            localStorage.setItem('q2_experience', userData.experience);
+            
+            setTimeout(() => {
+                this.classList.remove('active');
+                // 跳转到 Q3.html
+                window.location.href = 'Q3.html';
+            }, 300);
+        });
+    });
+
+    document.querySelectorAll('.skip-tab').forEach(skipLink => {
+        skipLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (currentTab < 3) {
+                currentTab++;
+                updateProgress();
+                showTab(currentTab);
+            } else {
+                completeOnboarding();
+            }
+        });
+    });
+
+    function createConfetti() {
+        const colors = ['#007BFF', '#28A745', '#FFC107', '#DC3545', '#17A2B8'];
+        for (let i = 0; i < 50; i++) {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti-piece';
+            confetti.style.left = Math.random() * 100 + '%';
+            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.animationDelay = Math.random() * 0.5 + 's';
+            document.body.appendChild(confetti);
+            
+            setTimeout(() => confetti.remove(), 3000);
+        }
+    }
+
+    document.getElementById('progress-bar-container').addEventListener('click', function() {
+        const tooltip = document.createElement('div');
+        tooltip.className = 'fixed top-24 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs px-3 py-2 rounded-lg z-50';
+        tooltip.textContent = 'Progress: ' + currentTab + ' of 3 questions completed';
+        document.body.appendChild(tooltip);
+        
+        setTimeout(() => tooltip.remove(), 2000);
+    });
+
+    updateProgress();
+    showTab(1);
+});
+</script>
+
+</body>
+</html>

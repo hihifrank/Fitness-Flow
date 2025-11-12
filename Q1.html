@@ -1,0 +1,619 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Information</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script> window.FontAwesomeConfig = { autoReplaceSvg: 'nest'};</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>::-webkit-scrollbar { display: none;}
+    @keyframes slideInRight {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes ripple {
+        0% { transform: scale(0); opacity: 1; }
+        100% { transform: scale(4); opacity: 0; }
+    }
+    @keyframes pulse {
+        0%, 100% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7); }
+        50% { box-shadow: 0 0 0 10px rgba(40, 167, 69, 0); }
+    }
+    @keyframes confetti {
+        0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+        100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+    }
+    @keyframes toastSlideIn {
+        from { transform: translateY(100px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+    .slide-in { animation: slideInRight 300ms ease-in-out; }
+    .ripple-effect { position: relative; overflow: hidden; }
+    .ripple-effect::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 20px;
+        height: 20px;
+        background: rgba(0, 123, 255, 0.5);
+        border-radius: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        pointer-events: none;
+    }
+    .ripple-effect.active::after { animation: ripple 600ms ease-out; }
+    .pulse-green { animation: pulse 2s infinite; }
+    .confetti-piece {
+        position: fixed;
+        width: 10px;
+        height: 10px;
+        z-index: 9999;
+        animation: confetti 3s ease-in-out forwards;
+    }
+    .toast-message {
+        animation: toastSlideIn 400ms ease-out;
+    }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'roboto': ['Roboto', 'sans-serif']
+                    },
+                    colors: {
+                        'primary-blue': '#007BFF',
+                        'accent-green': '#28A745',
+                        'light-gray': '#F2F2F2'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-roboto bg-white overflow-hidden" style="width: 375px; height: 812px; margin: 0 auto;">
+
+<div id="app-container" class="relative w-full h-full flex flex-col">
+    
+    <header id="header" class="fixed top-0 left-0 right-0 bg-white shadow-sm z-50" style="height: 15%;">
+        <div class="flex items-center justify-center pt-4 pb-2 px-4">
+            <i class="fa-solid fa-dumbbell text-primary-blue text-xl mr-2"></i>
+            <h1 class="text-lg font-bold text-primary-blue">Fitness-Flow</h1>
+        </div>
+        <div class="px-4 pb-3">
+            <div class="flex items-center justify-between mb-1">
+                <span class="text-xs text-gray-600">Question Completion</span>
+                <span id="progress-text" class="text-xs font-medium text-gray-800">1/4</span>
+            </div>
+            <div class="w-full h-2 bg-light-gray rounded-full overflow-hidden cursor-pointer" id="progress-bar-container">
+                <div id="progress-bar" class="h-full bg-accent-green transition-all duration-300 rounded-full" style="width: 25%"></div>
+            </div>
+        </div>
+    </header>
+
+    <main id="main-content" class="flex-1 overflow-y-auto pt-[15%]" style="height: 85%;">
+        
+        <section id="tab-age" class="min-h-full px-4 py-6 bg-white">
+            <div class="text-center mb-6">
+                <div class="text-4xl mb-3">馃巶</div>
+                <h2 class="text-lg font-bold text-primary-blue mb-1">What's your age range?</h2>
+                <p class="text-sm text-gray-500">Help us customize your fitness journey</p>
+            </div>
+            
+            <div class="space-y-3">
+                <div class="age-option ripple-effect bg-white border-2 border-gray-200 rounded-xl p-4 cursor-pointer transition-all hover:border-primary-blue" data-value="16-20">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-6 h-6 rounded-full border-2 border-gray-300 mr-3 mt-1 flex items-center justify-center option-radio">
+                            <div class="w-3 h-3 rounded-full bg-accent-green hidden check-mark"></div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">16-20 years</div>
+                            <div class="text-sm text-gray-500 mt-1">High-energy starters</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="age-option ripple-effect bg-white border-2 border-gray-200 rounded-xl p-4 cursor-pointer transition-all hover:border-primary-blue" data-value="20-25">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-6 h-6 rounded-full border-2 border-gray-300 mr-3 mt-1 flex items-center justify-center option-radio">
+                            <div class="w-3 h-3 rounded-full bg-accent-green hidden check-mark"></div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">20-25 years</div>
+                            <div class="text-sm text-gray-500 mt-1">Efficient career fits</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="age-option ripple-effect bg-white border-2 border-gray-200 rounded-xl p-4 cursor-pointer transition-all hover:border-primary-blue" data-value="25-30">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-6 h-6 rounded-full border-2 border-gray-300 mr-3 mt-1 flex items-center justify-center option-radio">
+                            <div class="w-3 h-3 rounded-full bg-accent-green hidden check-mark"></div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">25-30 years</div>
+                            <div class="text-sm text-gray-500 mt-1">Balanced peak</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="age-option ripple-effect bg-white border-2 border-gray-200 rounded-xl p-4 cursor-pointer transition-all hover:border-primary-blue" data-value="30-40">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-6 h-6 rounded-full border-2 border-gray-300 mr-3 mt-1 flex items-center justify-center option-radio">
+                            <div class="w-3 h-3 rounded-full bg-accent-green hidden check-mark"></div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">30-40 years</div>
+                            <div class="text-sm text-gray-500 mt-1">Smart injury prevention</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="age-option ripple-effect bg-white border-2 border-gray-200 rounded-xl p-4 cursor-pointer transition-all hover:border-primary-blue" data-value="40+">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-6 h-6 rounded-full border-2 border-gray-300 mr-3 mt-1 flex items-center justify-center option-radio">
+                            <div class="w-3 h-3 rounded-full bg-accent-green hidden check-mark"></div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">40+ years</div>
+                            <div class="text-sm text-gray-500 mt-1">Sustainable wellness</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a href="#" class="skip-tab block text-center text-sm text-gray-500 hover:text-gray-700 mt-6">Skip</a>
+        </section>
+
+        <section id="tab-weight" class="min-h-full px-4 py-6 bg-white hidden">
+            <div class="text-center mb-6">
+                <div class="text-4xl mb-3">鈿栵笍</div>
+                <h2 class="text-lg font-bold text-primary-blue mb-1">What's your weight range?</h2>
+                <p class="text-sm text-gray-500">Helps calculate your BMI and goals</p>
+            </div>
+            
+            <div class="space-y-3">
+                <div class="weight-option ripple-effect bg-white border-2 border-gray-200 rounded-xl p-4 cursor-pointer transition-all hover:border-primary-blue" data-value="<50">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-6 h-6 rounded-full border-2 border-gray-300 mr-3 mt-1 flex items-center justify-center option-radio">
+                            <div class="w-3 h-3 rounded-full bg-accent-green hidden check-mark"></div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">Less than 50kg</div>
+                            <div class="text-sm text-gray-500 mt-1">Core-focused light build</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="weight-option ripple-effect bg-white border-2 border-gray-200 rounded-xl p-4 cursor-pointer transition-all hover:border-primary-blue" data-value="50-60">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-6 h-6 rounded-full border-2 border-gray-300 mr-3 mt-1 flex items-center justify-center option-radio">
+                            <div class="w-3 h-3 rounded-full bg-accent-green hidden check-mark"></div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">50-60kg</div>
+                            <div class="text-sm text-gray-500 mt-1">All-around balance</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="weight-option ripple-effect bg-white border-2 border-gray-200 rounded-xl p-4 cursor-pointer transition-all hover:border-primary-blue" data-value="60-70">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-6 h-6 rounded-full border-2 border-gray-300 mr-3 mt-1 flex items-center justify-center option-radio">
+                            <div class="w-3 h-3 rounded-full bg-accent-green hidden check-mark"></div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">60-70kg</div>
+                            <div class="text-sm text-gray-500 mt-1">Muscle-building medium</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="weight-option ripple-effect bg-white border-2 border-gray-200 rounded-xl p-4 cursor-pointer transition-all hover:border-primary-blue" data-value="70-80">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-6 h-6 rounded-full border-2 border-gray-300 mr-3 mt-1 flex items-center justify-center option-radio">
+                            <div class="w-3 h-3 rounded-full bg-accent-green hidden check-mark"></div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">70-80kg</div>
+                            <div class="text-sm text-gray-500 mt-1">Endurance for robust</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="weight-option ripple-effect bg-white border-2 border-gray-200 rounded-xl p-4 cursor-pointer transition-all hover:border-primary-blue" data-value=">80">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-6 h-6 rounded-full border-2 border-gray-300 mr-3 mt-1 flex items-center justify-center option-radio">
+                            <div class="w-3 h-3 rounded-full bg-accent-green hidden check-mark"></div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">More than 80kg</div>
+                            <div class="text-sm text-gray-500 mt-1">Power with fat optimization</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="weight-option ripple-effect bg-white border-2 border-gray-200 rounded-xl p-4 cursor-pointer transition-all hover:border-primary-blue" data-value="custom">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-6 h-6 rounded-full border-2 border-gray-300 mr-3 mt-1 flex items-center justify-center option-radio">
+                            <div class="w-3 h-3 rounded-full bg-accent-green hidden check-mark"></div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">Custom</div>
+                            <input type="number" placeholder="Enter kg" class="w-full mt-2 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-primary-blue" id="custom-weight-input">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a href="#" class="skip-tab block text-center text-sm text-gray-500 hover:text-gray-700 mt-6">Skip</a>
+        </section>
+
+        <section id="tab-gender" class="min-h-full px-4 py-6 bg-white hidden">
+            <div class="text-center mb-6">
+                <div class="text-4xl mb-3">鈿?/div>
+                <h2 class="text-lg font-bold text-primary-blue mb-1">What's your gender?</h2>
+                <p class="text-sm text-gray-500">Personalize your workout emphasis</p>
+            </div>
+            
+            <div class="space-y-3">
+                <div class="gender-option ripple-effect bg-white border-2 border-gray-200 rounded-xl p-5 cursor-pointer transition-all hover:border-primary-blue flex items-center" style="height: 48px;" data-value="male">
+                    <div class="flex-shrink-0 w-6 h-6 rounded-full border-2 border-gray-300 mr-3 flex items-center justify-center option-radio">
+                        <div class="w-3 h-3 rounded-full bg-accent-green hidden check-mark"></div>
+                    </div>
+                    <div class="flex-1">
+                        <div class="font-medium text-gray-900">Male</div>
+                    </div>
+                </div>
+                <div class="text-xs text-gray-500 px-4 -mt-2">Upper-body power emphasis</div>
+
+                <div class="gender-option ripple-effect bg-white border-2 border-gray-200 rounded-xl p-5 cursor-pointer transition-all hover:border-primary-blue flex items-center mt-4" style="height: 48px;" data-value="female">
+                    <div class="flex-shrink-0 w-6 h-6 rounded-full border-2 border-gray-300 mr-3 flex items-center justify-center option-radio">
+                        <div class="w-3 h-3 rounded-full bg-accent-green hidden check-mark"></div>
+                    </div>
+                    <div class="flex-1">
+                        <div class="font-medium text-gray-900">Female</div>
+                    </div>
+                </div>
+                <div class="text-xs text-gray-500 px-4 -mt-2">Flex & form priority</div>
+
+                <div class="gender-option ripple-effect bg-white border-2 border-gray-200 rounded-xl p-5 cursor-pointer transition-all hover:border-primary-blue flex items-center mt-4" style="height: 48px;" data-value="other">
+                    <div class="flex-shrink-0 w-6 h-6 rounded-full border-2 border-gray-300 mr-3 flex items-center justify-center option-radio">
+                        <div class="w-3 h-3 rounded-full bg-accent-green hidden check-mark"></div>
+                    </div>
+                    <div class="flex-1">
+                        <div class="font-medium text-gray-900">Other/Prefer not to say</div>
+                    </div>
+                </div>
+                <div class="text-xs text-gray-500 px-4 -mt-2">Fully adaptive</div>
+            </div>
+            <a href="#" class="skip-tab block text-center text-sm text-gray-500 hover:text-gray-700 mt-6">Skip</a>
+        </section>
+
+        <section id="tab-height" class="min-h-full px-4 py-6 bg-white hidden">
+            <div class="text-center mb-6">
+                <div class="text-4xl mb-3">馃搹</div>
+                <h2 class="text-lg font-bold text-primary-blue mb-1">What's your height range?</h2>
+                <p class="text-sm text-gray-500">Complete your profile for BMI calculation</p>
+            </div>
+            
+            <div class="space-y-3">
+                <div class="height-option ripple-effect bg-white border-2 border-gray-200 rounded-xl p-4 cursor-pointer transition-all hover:border-primary-blue" data-value="<150">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-6 h-6 rounded-full border-2 border-gray-300 mr-3 mt-1 flex items-center justify-center option-radio">
+                            <div class="w-3 h-3 rounded-full bg-accent-green hidden check-mark"></div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">Less than 150cm</div>
+                            <div class="text-sm text-gray-500 mt-1">Compact agility focus</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="height-option ripple-effect bg-white border-2 border-gray-200 rounded-xl p-4 cursor-pointer transition-all hover:border-primary-blue" data-value="150-160">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-6 h-6 rounded-full border-2 border-gray-300 mr-3 mt-1 flex items-center justify-center option-radio">
+                            <div class="w-3 h-3 rounded-full bg-accent-green hidden check-mark"></div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">150-160cm</div>
+                            <div class="text-sm text-gray-500 mt-1">Versatile standard</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="height-option ripple-effect bg-white border-2 border-gray-200 rounded-xl p-4 cursor-pointer transition-all hover:border-primary-blue" data-value="160-170">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-6 h-6 rounded-full border-2 border-gray-300 mr-3 mt-1 flex items-center justify-center option-radio">
+                            <div class="w-3 h-3 rounded-full bg-accent-green hidden check-mark"></div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">160-170cm</div>
+                            <div class="text-sm text-gray-500 mt-1">Balanced proportions</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="height-option ripple-effect bg-white border-2 border-gray-200 rounded-xl p-4 cursor-pointer transition-all hover:border-primary-blue" data-value="170-180">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-6 h-6 rounded-full border-2 border-gray-300 mr-3 mt-1 flex items-center justify-center option-radio">
+                            <div class="w-3 h-3 rounded-full bg-accent-green hidden check-mark"></div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">170-180cm</div>
+                            <div class="text-sm text-gray-500 mt-1">Leverage for strength</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="height-option ripple-effect bg-white border-2 border-gray-200 rounded-xl p-4 cursor-pointer transition-all hover:border-primary-blue" data-value="180+">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-6 h-6 rounded-full border-2 border-gray-300 mr-3 mt-1 flex items-center justify-center option-radio">
+                            <div class="w-3 h-3 rounded-full bg-accent-green hidden check-mark"></div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">180cm or more</div>
+                            <div class="text-sm text-gray-500 mt-1">Tall-frame endurance</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="height-option ripple-effect bg-white border-2 border-gray-200 rounded-xl p-4 cursor-pointer transition-all hover:border-primary-blue" data-value="custom">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-6 h-6 rounded-full border-2 border-gray-300 mr-3 mt-1 flex items-center justify-center option-radio">
+                            <div class="w-3 h-3 rounded-full bg-accent-green hidden check-mark"></div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">Custom</div>
+                            <input type="number" placeholder="Enter cm" class="w-full mt-2 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-primary-blue" id="custom-height-input">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a href="#" class="skip-tab block text-center text-sm text-gray-500 hover:text-gray-700 mt-6">Skip</a>
+        </section>
+
+    </main>
+
+</div>
+
+<script>
+window.addEventListener('load', function() {
+    let currentTab = 1;
+    let userData = {
+        age: null,
+        weight: null,
+        gender: null,
+        height: null
+    };
+
+    const progressBar = document.getElementById('progress-bar');
+    const progressText = document.getElementById('progress-text');
+    const mainContent = document.getElementById('main-content');
+
+    const tabAge = document.getElementById('tab-age');
+    const tabWeight = document.getElementById('tab-weight');
+    const tabGender = document.getElementById('tab-gender');
+    const tabHeight = document.getElementById('tab-height');
+
+    function updateProgress() {
+        const percentage = (currentTab / 4) * 100;
+        progressBar.style.width = percentage + '%';
+        progressText.textContent = currentTab + '/4';
+    }
+
+    function showTab(tabNumber) {
+        tabAge.classList.add('hidden');
+        tabWeight.classList.add('hidden');
+        tabGender.classList.add('hidden');
+        tabHeight.classList.add('hidden');
+
+        mainContent.scrollTop = 0;
+
+        if (tabNumber === 1) {
+            tabAge.classList.remove('hidden');
+        } else if (tabNumber === 2) {
+            tabWeight.classList.remove('hidden');
+            tabWeight.classList.add('slide-in');
+        } else if (tabNumber === 3) {
+            tabGender.classList.remove('hidden');
+            tabGender.classList.add('slide-in');
+        } else if (tabNumber === 4) {
+            tabHeight.classList.remove('hidden');
+            tabHeight.classList.add('slide-in');
+        }
+    }
+
+    function showSuccessToast() {
+        const toast = document.createElement('div');
+        toast.className = 'toast-message fixed bottom-8 left-1/2 transform -translate-x-1/2 bg-accent-green text-white px-6 py-4 rounded-xl shadow-lg z-50 pulse-green';
+        toast.innerHTML = '<div class="flex items-center"><i class="fa-solid fa-check-circle mr-3 text-xl"></i><div><div class="font-medium">All set!</div><div class="text-sm">Let\'s personalize your plan.</div></div></div>';
+        document.body.appendChild(toast);
+        
+        setTimeout(() => toast.remove(), 2500);
+    }
+
+    function completeOnboarding() {
+        createConfetti();
+        showSuccessToast();
+        
+        // Save user data to localStorage
+        localStorage.setItem('q1_age', userData.age);
+        localStorage.setItem('q1_weight', userData.weight);
+        localStorage.setItem('q1_gender', userData.gender);
+        localStorage.setItem('q1_height', userData.height);
+        
+        setTimeout(() => {
+            window.location.href = 'Q2.html';
+        }, 2500);
+    }
+
+    document.querySelectorAll('.age-option').forEach(option => {
+        option.addEventListener('click', function() {
+            document.querySelectorAll('.age-option').forEach(opt => {
+                opt.classList.remove('border-accent-green');
+                opt.classList.add('border-gray-200');
+                opt.querySelector('.check-mark').classList.add('hidden');
+            });
+
+            this.classList.add('active', 'border-accent-green');
+            this.classList.remove('border-gray-200');
+            this.querySelector('.check-mark').classList.remove('hidden');
+
+            userData.age = this.dataset.value;
+
+            setTimeout(() => {
+                this.classList.remove('active');
+                currentTab = 2;
+                updateProgress();
+                showTab(2);
+            }, 300);
+        });
+    });
+
+    document.querySelectorAll('.weight-option').forEach(option => {
+        option.addEventListener('click', function() {
+            document.querySelectorAll('.weight-option').forEach(opt => {
+                opt.classList.remove('border-accent-green');
+                opt.classList.add('border-gray-200');
+                opt.querySelector('.check-mark').classList.add('hidden');
+            });
+
+            this.classList.add('active', 'border-accent-green');
+            this.classList.remove('border-gray-200');
+            this.querySelector('.check-mark').classList.remove('hidden');
+
+            if (this.dataset.value === 'custom') {
+                document.getElementById('custom-weight-input').focus();
+                userData.weight = 'custom';
+            } else {
+                userData.weight = this.dataset.value;
+            }
+
+            if (this.dataset.value !== 'custom') {
+                setTimeout(() => {
+                    this.classList.remove('active');
+                    currentTab = 3;
+                    updateProgress();
+                    showTab(3);
+                }, 300);
+            }
+        });
+    });
+
+    document.getElementById('custom-weight-input').addEventListener('input', function() {
+        if (this.value) {
+            userData.weight = this.value + 'kg';
+            setTimeout(() => {
+                currentTab = 3;
+                updateProgress();
+                showTab(3);
+            }, 500);
+        }
+    });
+
+    document.querySelectorAll('.gender-option').forEach(option => {
+        option.addEventListener('click', function() {
+            document.querySelectorAll('.gender-option').forEach(opt => {
+                opt.classList.remove('border-accent-green');
+                opt.classList.add('border-gray-200');
+                opt.querySelector('.check-mark').classList.add('hidden');
+            });
+
+            this.classList.add('active', 'border-accent-green');
+            this.classList.remove('border-gray-200');
+            this.querySelector('.check-mark').classList.remove('hidden');
+
+            userData.gender = this.dataset.value;
+            
+            setTimeout(() => {
+                this.classList.remove('active');
+                currentTab = 4;
+                updateProgress();
+                showTab(4);
+            }, 300);
+        });
+    });
+
+    document.querySelectorAll('.height-option').forEach(option => {
+        option.addEventListener('click', function() {
+            document.querySelectorAll('.height-option').forEach(opt => {
+                opt.classList.remove('border-accent-green');
+                opt.classList.add('border-gray-200');
+                opt.querySelector('.check-mark').classList.add('hidden');
+            });
+
+            this.classList.add('active', 'border-accent-green');
+            this.classList.remove('border-gray-200');
+            this.querySelector('.check-mark').classList.remove('hidden');
+
+            if (this.dataset.value === 'custom') {
+                document.getElementById('custom-height-input').focus();
+                userData.height = 'custom';
+            } else {
+                userData.height = this.dataset.value;
+            }
+
+            if (this.dataset.value !== 'custom') {
+                setTimeout(() => {
+                    this.classList.remove('active');
+                    completeOnboarding();
+                }, 300);
+            }
+        });
+    });
+
+    document.getElementById('custom-height-input').addEventListener('input', function() {
+        if (this.value) {
+            userData.height = this.value + 'cm';
+            setTimeout(() => {
+                completeOnboarding();
+            }, 500);
+        }
+    });
+
+    document.querySelectorAll('.skip-tab').forEach(skipLink => {
+        skipLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (currentTab < 4) {
+                currentTab++;
+                updateProgress();
+                showTab(currentTab);
+            } else {
+                completeOnboarding();
+            }
+        });
+    });
+
+    function createConfetti() {
+        const colors = ['#007BFF', '#28A745', '#FFC107', '#DC3545', '#17A2B8'];
+        for (let i = 0; i < 50; i++) {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti-piece';
+            confetti.style.left = Math.random() * 100 + '%';
+            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.animationDelay = Math.random() * 0.5 + 's';
+            document.body.appendChild(confetti);
+            
+            setTimeout(() => confetti.remove(), 3000);
+        }
+    }
+
+    document.getElementById('progress-bar-container').addEventListener('click', function() {
+        const tooltip = document.createElement('div');
+        tooltip.className = 'fixed top-24 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs px-3 py-2 rounded-lg z-50';
+        tooltip.textContent = 'Progress: ' + currentTab + ' of 4 questions completed';
+        document.body.appendChild(tooltip);
+        
+        setTimeout(() => tooltip.remove(), 2000);
+    });
+
+    updateProgress();
+    showTab(1);
+});
+</script>
+
+</body>
+</html>
