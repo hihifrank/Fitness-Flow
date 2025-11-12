@@ -409,6 +409,8 @@ window.addEventListener('load', function() {
 
     document.querySelectorAll('.experience-option').forEach(option => {
         option.addEventListener('click', function() {
+            console.log('Experience option clicked:', this.dataset.value);
+            
             document.querySelectorAll('.experience-option').forEach(opt => {
                 opt.classList.remove('border-accent-green');
                 opt.classList.add('border-gray-200');
@@ -426,8 +428,12 @@ window.addEventListener('load', function() {
             localStorage.setItem('q2_goal', userData.goal);
             localStorage.setItem('q2_experience', userData.experience);
             
+            console.log('Saved to localStorage:', userData);
+            console.log('Redirecting to Q3.html in 300ms...');
+            
             setTimeout(() => {
                 this.classList.remove('active');
+                console.log('Now redirecting to Q3.html');
                 // 跳转到 Q3.html
                 window.location.href = 'Q3.html';
             }, 300);
