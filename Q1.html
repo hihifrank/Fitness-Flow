@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -99,7 +99,7 @@
         
         <section id="tab-age" class="min-h-full px-4 py-6 bg-white">
             <div class="text-center mb-6">
-                <div class="text-4xl mb-3">🎂</div>
+                <div class="text-4xl mb-3">馃巶</div>
                 <h2 class="text-lg font-bold text-primary-blue mb-1">What's your age range?</h2>
                 <p class="text-sm text-gray-500">Help us customize your fitness journey</p>
             </div>
@@ -170,7 +170,7 @@
 
         <section id="tab-weight" class="min-h-full px-4 py-6 bg-white hidden">
             <div class="text-center mb-6">
-                <div class="text-4xl mb-3">⚖️</div>
+                <div class="text-4xl mb-3">鈿栵笍</div>
                 <h2 class="text-lg font-bold text-primary-blue mb-1">What's your weight range?</h2>
                 <p class="text-sm text-gray-500">Helps calculate your BMI and goals</p>
             </div>
@@ -253,7 +253,7 @@
 
         <section id="tab-gender" class="min-h-full px-4 py-6 bg-white hidden">
             <div class="text-center mb-6">
-                <div class="text-4xl mb-3">⚥</div>
+                <div class="text-4xl mb-3">鈿?/div>
                 <h2 class="text-lg font-bold text-primary-blue mb-1">What's your gender?</h2>
                 <p class="text-sm text-gray-500">Personalize your workout emphasis</p>
             </div>
@@ -294,7 +294,7 @@
 
         <section id="tab-height" class="min-h-full px-4 py-6 bg-white hidden">
             <div class="text-center mb-6">
-                <div class="text-4xl mb-3">📏</div>
+                <div class="text-4xl mb-3">馃搹</div>
                 <h2 class="text-lg font-bold text-primary-blue mb-1">What's your height range?</h2>
                 <p class="text-sm text-gray-500">Complete your profile for BMI calculation</p>
             </div>
@@ -439,14 +439,13 @@ window.addEventListener('load', function() {
         createConfetti();
         showSuccessToast();
         
-        // 保存用户数据到 localStorage
+        // Save user data to localStorage
         localStorage.setItem('q1_age', userData.age);
         localStorage.setItem('q1_weight', userData.weight);
         localStorage.setItem('q1_gender', userData.gender);
         localStorage.setItem('q1_height', userData.height);
         
         setTimeout(() => {
-            // 跳转到 Q2.html
             window.location.href = 'Q2.html';
         }, 2500);
     }
