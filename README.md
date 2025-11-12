@@ -1,5 +1,9 @@
 # Fitness-Flow AI 健身助手
 
+> 📋 **重要文件**: [查看 AI 開發互動記錄 (chat.md)](./chat.md) - 詳細記錄了與 AI 的完整開發過程
+
+---
+
 ## 應用流程
 
 這是一個完整的健身助手應用，包含以下頁面和功能：
@@ -74,3 +78,42 @@
 - Font Awesome Icons
 - Plotly.js (圖表)
 - JavaScript (原生)
+
+---
+
+## 📚 專案文件
+
+- **[chat.md](./chat.md)** - AI 互動開發記錄
+  - 詳細記錄了與 AI 的互動過程
+  - 包含 5 個具體提示範例
+  - 說明 AI 如何影響專案建構
+  - 記錄技術決策和學習成果
+
+- **[README.md](./README.md)** - 專案說明文件（本文件）
+  - 應用功能介紹
+  - 使用說明
+  - 技術架構
+
+## 🚀 快速開始
+
+1. Clone 此專案：
+   ```bash
+   git clone https://github.com/hihifrank/Fitness-Flow.git
+   ```
+
+2. 在瀏覽器中開啟 `Q1.html` 開始使用
+
+3. 或訪問 GitHub Pages（如已啟用）：
+   ```
+   https://hihifrank.github.io/Fitness-Flow/Q1.html
+   ```
+
+## 📝 開發記錄
+
+本專案使用 AI 輔助開發，完整的開發過程記錄在 [chat.md](./chat.md) 中。
+
+---
+
+**專案作者**: hihifrank  
+**開發時間**: 2025年11月  
+**GitHub**: https://github.com/hihifrank/Fitness-Flow
