@@ -344,8 +344,14 @@ window.addEventListener('load', function() {
         createConfetti();
         showSuccessToast();
         
+        // 保存用户数据到 localStorage
+        localStorage.setItem('q2_personality', userData.personality);
+        localStorage.setItem('q2_goal', userData.goal);
+        localStorage.setItem('q2_experience', userData.experience);
+        
         setTimeout(() => {
-            window.location.href = '#dashboard';
+            // 跳转到 Q3.html
+            window.location.href = 'Q3.html';
         }, 2500);
     }
 
