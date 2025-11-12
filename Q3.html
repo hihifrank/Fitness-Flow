@@ -1,62 +1,123 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sports Selection</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script> window.FontAwesomeConfig = { autoReplaceSvg: 'nest'};</script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script> window.FontAwesomeConfig = { autoReplaceSvg: 'nest' };</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous"
+        referrerpolicy="no-referrer"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <style>::-webkit-scrollbar { display: none;}
-    @keyframes slideInRight {
-        from { transform: translateX(100%); opacity: 0; }
-        to { transform: translateX(0); opacity: 1; }
-    }
-    @keyframes ripple {
-        0% { transform: scale(0); opacity: 1; }
-        100% { transform: scale(4); opacity: 0; }
-    }
-    @keyframes pulse {
-        0%, 100% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7); }
-        50% { box-shadow: 0 0 0 10px rgba(40, 167, 69, 0); }
-    }
-    @keyframes confetti {
-        0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
-        100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
-    }
-    @keyframes toastSlideIn {
-        from { transform: translateY(100px); opacity: 0; }
-        to { transform: translateY(0); opacity: 1; }
-    }
-    .slide-in { animation: slideInRight 300ms ease-in-out; }
-    .ripple-effect { position: relative; overflow: hidden; }
-    .ripple-effect::after {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 20px;
-        height: 20px;
-        background: rgba(0, 123, 255, 0.5);
-        border-radius: 50%;
-        transform: translate(-50%, -50%) scale(0);
-        pointer-events: none;
-    }
-    .ripple-effect.active::after { animation: ripple 600ms ease-out; }
-    .pulse-green { animation: pulse 2s infinite; }
-    .confetti-piece {
-        position: fixed;
-        width: 10px;
-        height: 10px;
-        z-index: 9999;
-        animation: confetti 3s ease-in-out forwards;
-    }
-    .toast-message {
-        animation: toastSlideIn 400ms ease-out;
-    }
+    <style>
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes ripple {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7);
+            }
+
+            50% {
+                box-shadow: 0 0 0 10px rgba(40, 167, 69, 0);
+            }
+        }
+
+        @keyframes confetti {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes toastSlideIn {
+            from {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .slide-in {
+            animation: slideInRight 300ms ease-in-out;
+        }
+
+        .ripple-effect {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ripple-effect::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            background: rgba(0, 123, 255, 0.5);
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            pointer-events: none;
+        }
+
+        .ripple-effect.active::after {
+            animation: ripple 600ms ease-out;
+        }
+
+        .pulse-green {
+            animation: pulse 2s infinite;
+        }
+
+        .confetti-piece {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            z-index: 9999;
+            animation: confetti 3s ease-in-out forwards;
+        }
+
+        .toast-message {
+            animation: toastSlideIn 400ms ease-out;
+        }
     </style>
     <script>
         tailwind.config = {
@@ -75,391 +136,432 @@
         }
     </script>
 </head>
+
 <body class="font-roboto bg-white overflow-hidden" style="width: 375px; height: 812px; margin: 0 auto;">
 
-<div id="app-container" class="relative w-full h-full flex flex-col">
-    
-    <header id="header" class="fixed top-0 left-0 right-0 bg-white shadow-sm z-50" style="height: 15%;">
-        <div class="flex items-center justify-center pt-4 pb-2 px-4">
-            <i class="fa-solid fa-dumbbell text-primary-blue text-xl mr-2"></i>
-            <h1 class="text-lg font-bold text-primary-blue">Fitness-Flow</h1>
-        </div>
-        <div class="px-4 pb-3">
-            <div class="flex items-center justify-between mb-1">
-                <span class="text-xs text-gray-600">Question Completion</span>
-                <span id="progress-text" class="text-xs font-medium text-gray-800">4/5</span>
+    <div id="app-container" class="relative w-full h-full flex flex-col">
+
+        <header id="header" class="fixed top-0 left-0 right-0 bg-white shadow-sm z-50" style="height: 15%;">
+            <div class="flex items-center justify-center pt-4 pb-2 px-4">
+                <i class="fa-solid fa-dumbbell text-primary-blue text-xl mr-2"></i>
+                <h1 class="text-lg font-bold text-primary-blue">Fitness-Flow</h1>
             </div>
-            <div class="w-full h-2 bg-light-gray rounded-full overflow-hidden cursor-pointer" id="progress-bar-container">
-                <div id="progress-bar" class="h-full bg-accent-green transition-all duration-300 rounded-full" style="width: 80%"></div>
-            </div>
-        </div>
-    </header>
-
-    <main id="main-content" class="flex-1 overflow-y-auto pt-[15%]" style="height: 85%;">
-        
-        <section id="tab-sports" class="min-h-full px-4 py-6 bg-white">
-            <div class="text-center mb-6">
-                <div class="text-4xl mb-3">🏀</div>
-                <h2 class="text-lg font-bold text-primary-blue mb-2">Which sports do you want to train for?</h2>
-                <p class="text-sm text-gray-500 px-2">Pick 1-5 – we'll blend them into your plan (e.g., basketball agility + soccer stamina).</p>
-            </div>
-
-            <div class="flex items-center justify-between mb-4 px-2">
-                <span class="text-sm font-medium text-gray-700">Select your sports</span>
-                <span id="selection-counter" class="text-sm font-bold text-primary-blue">Selected: 0/5</span>
-            </div>
-            
-            <div class="grid grid-cols-2 gap-3 mb-6">
-                <div class="sport-option ripple-effect bg-white border-2 border-gray-200 rounded-xl p-3 cursor-pointer transition-all hover:border-primary-blue shadow-sm" data-value="basketball">
-                    <div class="flex flex-col items-center text-center">
-                        <div class="relative w-full flex justify-end mb-2">
-                            <div class="w-5 h-5 rounded border-2 border-gray-300 flex items-center justify-center option-checkbox">
-                                <i class="fa-solid fa-check text-white text-xs hidden check-icon"></i>
-                            </div>
-                        </div>
-                        <div class="text-3xl mb-2">🏀</div>
-                        <div class="font-medium text-gray-900 text-sm mb-1">Basketball</div>
-                        <div class="text-xs text-gray-500">Build jumps & team plays – perfect for quick HK courts</div>
-                    </div>
+            <div class="px-4 pb-3">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="text-xs text-gray-600">Question Completion</span>
+                    <span id="progress-text" class="text-xs font-medium text-gray-800">4/5</span>
                 </div>
-
-                <div class="sport-option ripple-effect bg-white border-2 border-gray-200 rounded-xl p-3 cursor-pointer transition-all hover:border-primary-blue shadow-sm" data-value="soccer">
-                    <div class="flex flex-col items-center text-center">
-                        <div class="relative w-full flex justify-end mb-2">
-                            <div class="w-5 h-5 rounded border-2 border-gray-300 flex items-center justify-center option-checkbox">
-                                <i class="fa-solid fa-check text-white text-xs hidden check-icon"></i>
-                            </div>
-                        </div>
-                        <div class="text-3xl mb-2">⚽</div>
-                        <div class="font-medium text-gray-900 text-sm mb-1">Soccer/Football</div>
-                        <div class="text-xs text-gray-500">Boost speed & kicks – ideal for group fun</div>
-                    </div>
-                </div>
-
-                <div class="sport-option ripple-effect bg-white border-2 border-gray-200 rounded-xl p-3 cursor-pointer transition-all hover:border-primary-blue shadow-sm" data-value="badminton">
-                    <div class="flex flex-col items-center text-center">
-                        <div class="relative w-full flex justify-end mb-2">
-                            <div class="w-5 h-5 rounded border-2 border-gray-300 flex items-center justify-center option-checkbox">
-                                <i class="fa-solid fa-check text-white text-xs hidden check-icon"></i>
-                            </div>
-                        </div>
-                        <div class="text-3xl mb-2">🏸</div>
-                        <div class="font-medium text-gray-900 text-sm mb-1">Badminton</div>
-                        <div class="text-xs text-gray-500">Sharpen reflexes & footwork – low-space essential</div>
-                    </div>
-                </div>
-
-                <div class="sport-option ripple-effect bg-white border-2 border-gray-200 rounded-xl p-3 cursor-pointer transition-all hover:border-primary-blue shadow-sm" data-value="table-tennis">
-                    <div class="flex flex-col items-center text-center">
-                        <div class="relative w-full flex justify-end mb-2">
-                            <div class="w-5 h-5 rounded border-2 border-gray-300 flex items-center justify-center option-checkbox">
-                                <i class="fa-solid fa-check text-white text-xs hidden check-icon"></i>
-                            </div>
-                        </div>
-                        <div class="text-3xl mb-2">🏓</div>
-                        <div class="font-medium text-gray-900 text-sm mb-1">Table Tennis</div>
-                        <div class="text-xs text-gray-500">Hone precision & strategy – anytime indoor</div>
-                    </div>
-                </div>
-
-                <div class="sport-option ripple-effect bg-white border-2 border-gray-200 rounded-xl p-3 cursor-pointer transition-all hover:border-primary-blue shadow-sm" data-value="tennis">
-                    <div class="flex flex-col items-center text-center">
-                        <div class="relative w-full flex justify-end mb-2">
-                            <div class="w-5 h-5 rounded border-2 border-gray-300 flex items-center justify-center option-checkbox">
-                                <i class="fa-solid fa-check text-white text-xs hidden check-icon"></i>
-                            </div>
-                        </div>
-                        <div class="text-3xl mb-2">🎾</div>
-                        <div class="font-medium text-gray-900 text-sm mb-1">Tennis</div>
-                        <div class="text-xs text-gray-500">Enhance serves & endurance – outdoor energy</div>
-                    </div>
-                </div>
-
-                <div class="sport-option ripple-effect bg-white border-2 border-gray-200 rounded-xl p-3 cursor-pointer transition-all hover:border-primary-blue shadow-sm" data-value="running">
-                    <div class="flex flex-col items-center text-center">
-                        <div class="relative w-full flex justify-end mb-2">
-                            <div class="w-5 h-5 rounded border-2 border-gray-300 flex items-center justify-center option-checkbox">
-                                <i class="fa-solid fa-check text-white text-xs hidden check-icon"></i>
-                            </div>
-                        </div>
-                        <div class="text-3xl mb-2">🏃‍♂️</div>
-                        <div class="font-medium text-gray-900 text-sm mb-1">Running/Track</div>
-                        <div class="text-xs text-gray-500">Core cardio – marathon prep or sprints</div>
-                    </div>
-                </div>
-
-                <div class="sport-option ripple-effect bg-white border-2 border-gray-200 rounded-xl p-3 cursor-pointer transition-all hover:border-primary-blue shadow-sm" data-value="swimming">
-                    <div class="flex flex-col items-center text-center">
-                        <div class="relative w-full flex justify-end mb-2">
-                            <div class="w-5 h-5 rounded border-2 border-gray-300 flex items-center justify-center option-checkbox">
-                                <i class="fa-solid fa-check text-white text-xs hidden check-icon"></i>
-                            </div>
-                        </div>
-                        <div class="text-3xl mb-2">🏊‍♀️</div>
-                        <div class="font-medium text-gray-900 text-sm mb-1">Swimming</div>
-                        <div class="text-xs text-gray-500">Full-body low-impact – recovery king</div>
-                    </div>
-                </div>
-
-                <div class="sport-option ripple-effect bg-white border-2 border-gray-200 rounded-xl p-3 cursor-pointer transition-all hover:border-primary-blue shadow-sm" data-value="yoga">
-                    <div class="flex flex-col items-center text-center">
-                        <div class="relative w-full flex justify-end mb-2">
-                            <div class="w-5 h-5 rounded border-2 border-gray-300 flex items-center justify-center option-checkbox">
-                                <i class="fa-solid fa-check text-white text-xs hidden check-icon"></i>
-                            </div>
-                        </div>
-                        <div class="text-3xl mb-2">🧘‍♀️</div>
-                        <div class="font-medium text-gray-900 text-sm mb-1">Yoga/Pilates</div>
-                        <div class="text-xs text-gray-500">Flex & balance – multi-sport recovery</div>
-                    </div>
-                </div>
-
-                <div class="sport-option ripple-effect bg-white border-2 border-gray-200 rounded-xl p-3 cursor-pointer transition-all hover:border-primary-blue shadow-sm" data-value="weightlifting">
-                    <div class="flex flex-col items-center text-center">
-                        <div class="relative w-full flex justify-end mb-2">
-                            <div class="w-5 h-5 rounded border-2 border-gray-300 flex items-center justify-center option-checkbox">
-                                <i class="fa-solid fa-check text-white text-xs hidden check-icon"></i>
-                            </div>
-                        </div>
-                        <div class="text-3xl mb-2">🏋️‍♂️</div>
-                        <div class="font-medium text-gray-900 text-sm mb-1">Weightlifting</div>
-                        <div class="text-xs text-gray-500">Strength base – supports all activities</div>
-                    </div>
-                </div>
-
-                <div class="sport-option ripple-effect bg-white border-2 border-gray-200 rounded-xl p-3 cursor-pointer transition-all hover:border-primary-blue shadow-sm" data-value="cycling">
-                    <div class="flex flex-col items-center text-center">
-                        <div class="relative w-full flex justify-end mb-2">
-                            <div class="w-5 h-5 rounded border-2 border-gray-300 flex items-center justify-center option-checkbox">
-                                <i class="fa-solid fa-check text-white text-xs hidden check-icon"></i>
-                            </div>
-                        </div>
-                        <div class="text-3xl mb-2">🚴‍♀️</div>
-                        <div class="font-medium text-gray-900 text-sm mb-1">Cycling</div>
-                        <div class="text-xs text-gray-500">Leg power & cardio – urban commute hack</div>
-                    </div>
-                </div>
-
-                <div id="other-sport-card" class="sport-option ripple-effect bg-white border-2 border-gray-200 rounded-xl p-3 cursor-pointer transition-all hover:border-primary-blue shadow-sm" data-value="other">
-                    <div class="flex flex-col items-center text-center">
-                        <div class="relative w-full flex justify-end mb-2">
-                            <div class="w-5 h-5 rounded border-2 border-gray-300 flex items-center justify-center option-checkbox">
-                                <i class="fa-solid fa-check text-white text-xs hidden check-icon"></i>
-                            </div>
-                        </div>
-                        <div class="text-3xl mb-2">➕</div>
-                        <div class="font-medium text-gray-900 text-sm mb-1">Other/Custom</div>
-                        <div class="text-xs text-gray-500">Tell us your sport</div>
-                    </div>
+                <div class="w-full h-2 bg-light-gray rounded-full overflow-hidden cursor-pointer"
+                    id="progress-bar-container">
+                    <div id="progress-bar" class="h-full bg-accent-green transition-all duration-300 rounded-full"
+                        style="width: 80%"></div>
                 </div>
             </div>
+        </header>
 
-            <div id="custom-input-container" class="hidden mb-6 px-2">
-                <label class="block text-sm font-medium text-gray-700 mb-2">Tell us your sport:</label>
-                <input type="text" id="custom-sport-input" placeholder="e.g., Rock climbing, Martial arts..." class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-primary-blue focus:outline-none text-sm" maxlength="50">
-            </div>
+        <main id="main-content" class="flex-1 overflow-y-auto pt-[15%]" style="height: 85%;">
 
-            <div class="text-center mb-4">
-                <p class="text-sm font-medium text-accent-green">Mix & match for ultimate fitness!</p>
-            </div>
+            <section id="tab-sports" class="min-h-full px-4 py-6 bg-white">
+                <div class="text-center mb-6">
+                    <div class="text-4xl mb-3">🏀</div>
+                    <h2 class="text-lg font-bold text-primary-blue mb-2">Which sports do you want to train for?</h2>
+                    <p class="text-sm text-gray-500 px-2">Pick 1-5 – we'll blend them into your plan (e.g., basketball
+                        agility + soccer stamina).</p>
+                </div>
 
-            <a href="#" id="skip-link" class="block text-center text-sm text-gray-500 hover:text-gray-700 mb-4">Skip & generalize</a>
-            
-            <button id="continue-btn" disabled class="w-full bg-gray-300 text-gray-500 py-4 rounded-xl font-semibold text-base transition-all duration-300 disabled:cursor-not-allowed">
-                继续 <i class="fa-solid fa-arrow-right ml-2"></i>
-            </button>
-        </section>
+                <div class="flex items-center justify-between mb-4 px-2">
+                    <span class="text-sm font-medium text-gray-700">Select your sports</span>
+                    <span id="selection-counter" class="text-sm font-bold text-primary-blue">Selected: 0/5</span>
+                </div>
 
-    </main>
+                <div class="grid grid-cols-2 gap-3 mb-6">
+                    <div class="sport-option ripple-effect bg-white border-2 border-gray-200 rounded-xl p-3 cursor-pointer transition-all hover:border-primary-blue shadow-sm"
+                        data-value="basketball">
+                        <div class="flex flex-col items-center text-center">
+                            <div class="relative w-full flex justify-end mb-2">
+                                <div
+                                    class="w-5 h-5 rounded border-2 border-gray-300 flex items-center justify-center option-checkbox">
+                                    <i class="fa-solid fa-check text-white text-xs hidden check-icon"></i>
+                                </div>
+                            </div>
+                            <div class="text-3xl mb-2">🏀</div>
+                            <div class="font-medium text-gray-900 text-sm mb-1">Basketball</div>
+                            <div class="text-xs text-gray-500">Build jumps & team plays – perfect for quick HK courts
+                            </div>
+                        </div>
+                    </div>
 
-</div>
+                    <div class="sport-option ripple-effect bg-white border-2 border-gray-200 rounded-xl p-3 cursor-pointer transition-all hover:border-primary-blue shadow-sm"
+                        data-value="soccer">
+                        <div class="flex flex-col items-center text-center">
+                            <div class="relative w-full flex justify-end mb-2">
+                                <div
+                                    class="w-5 h-5 rounded border-2 border-gray-300 flex items-center justify-center option-checkbox">
+                                    <i class="fa-solid fa-check text-white text-xs hidden check-icon"></i>
+                                </div>
+                            </div>
+                            <div class="text-3xl mb-2">⚽</div>
+                            <div class="font-medium text-gray-900 text-sm mb-1">Soccer/Football</div>
+                            <div class="text-xs text-gray-500">Boost speed & kicks – ideal for group fun</div>
+                        </div>
+                    </div>
 
-<script>
-window.addEventListener('load', function() {
-    let selectedSports = [];
-    const maxSelections = 5;
-    const minSelections = 1;
+                    <div class="sport-option ripple-effect bg-white border-2 border-gray-200 rounded-xl p-3 cursor-pointer transition-all hover:border-primary-blue shadow-sm"
+                        data-value="badminton">
+                        <div class="flex flex-col items-center text-center">
+                            <div class="relative w-full flex justify-end mb-2">
+                                <div
+                                    class="w-5 h-5 rounded border-2 border-gray-300 flex items-center justify-center option-checkbox">
+                                    <i class="fa-solid fa-check text-white text-xs hidden check-icon"></i>
+                                </div>
+                            </div>
+                            <div class="text-3xl mb-2">🏸</div>
+                            <div class="font-medium text-gray-900 text-sm mb-1">Badminton</div>
+                            <div class="text-xs text-gray-500">Sharpen reflexes & footwork – low-space essential</div>
+                        </div>
+                    </div>
 
-    const selectionCounter = document.getElementById('selection-counter');
-    const customInputContainer = document.getElementById('custom-input-container');
-    const customSportInput = document.getElementById('custom-sport-input');
-    const otherSportCard = document.getElementById('other-sport-card');
+                    <div class="sport-option ripple-effect bg-white border-2 border-gray-200 rounded-xl p-3 cursor-pointer transition-all hover:border-primary-blue shadow-sm"
+                        data-value="table-tennis">
+                        <div class="flex flex-col items-center text-center">
+                            <div class="relative w-full flex justify-end mb-2">
+                                <div
+                                    class="w-5 h-5 rounded border-2 border-gray-300 flex items-center justify-center option-checkbox">
+                                    <i class="fa-solid fa-check text-white text-xs hidden check-icon"></i>
+                                </div>
+                            </div>
+                            <div class="text-3xl mb-2">🏓</div>
+                            <div class="font-medium text-gray-900 text-sm mb-1">Table Tennis</div>
+                            <div class="text-xs text-gray-500">Hone precision & strategy – anytime indoor</div>
+                        </div>
+                    </div>
 
-    function updateSelectionCounter() {
-        selectionCounter.textContent = 'Selected: ' + selectedSports.length + '/5';
-        
-        const continueBtn = document.getElementById('continue-btn');
-        
-        if (selectedSports.length > 0) {
-            selectionCounter.classList.remove('text-primary-blue');
-            selectionCounter.classList.add('text-accent-green', 'pulse-green');
-            
-            // 启用继续按钮
-            continueBtn.disabled = false;
-            continueBtn.className = 'w-full bg-gradient-to-r from-primary-blue to-accent-green text-white py-4 rounded-xl font-semibold text-base shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105';
-        } else {
-            selectionCounter.classList.remove('text-accent-green', 'pulse-green');
-            selectionCounter.classList.add('text-primary-blue');
-            
-            // 禁用继续按钮
-            continueBtn.disabled = true;
-            continueBtn.className = 'w-full bg-gray-300 text-gray-500 py-4 rounded-xl font-semibold text-base transition-all duration-300 disabled:cursor-not-allowed';
-        }
-    }
+                    <div class="sport-option ripple-effect bg-white border-2 border-gray-200 rounded-xl p-3 cursor-pointer transition-all hover:border-primary-blue shadow-sm"
+                        data-value="tennis">
+                        <div class="flex flex-col items-center text-center">
+                            <div class="relative w-full flex justify-end mb-2">
+                                <div
+                                    class="w-5 h-5 rounded border-2 border-gray-300 flex items-center justify-center option-checkbox">
+                                    <i class="fa-solid fa-check text-white text-xs hidden check-icon"></i>
+                                </div>
+                            </div>
+                            <div class="text-3xl mb-2">🎾</div>
+                            <div class="font-medium text-gray-900 text-sm mb-1">Tennis</div>
+                            <div class="text-xs text-gray-500">Enhance serves & endurance – outdoor energy</div>
+                        </div>
+                    </div>
 
-    function showMaxSelectionToast() {
-        const toast = document.createElement('div');
-        toast.className = 'toast-message fixed bottom-8 left-1/2 transform -translate-x-1/2 bg-red-500 text-white px-6 py-3 rounded-xl shadow-lg z-50';
-        toast.innerHTML = '<div class="flex items-center"><i class="fa-solid fa-exclamation-circle mr-3 text-lg"></i><div class="text-sm font-medium">Maximum 5 sports allowed</div></div>';
-        document.body.appendChild(toast);
-        
-        setTimeout(() => toast.remove(), 2000);
-    }
+                    <div class="sport-option ripple-effect bg-white border-2 border-gray-200 rounded-xl p-3 cursor-pointer transition-all hover:border-primary-blue shadow-sm"
+                        data-value="running">
+                        <div class="flex flex-col items-center text-center">
+                            <div class="relative w-full flex justify-end mb-2">
+                                <div
+                                    class="w-5 h-5 rounded border-2 border-gray-300 flex items-center justify-center option-checkbox">
+                                    <i class="fa-solid fa-check text-white text-xs hidden check-icon"></i>
+                                </div>
+                            </div>
+                            <div class="text-3xl mb-2">🏃‍♂️</div>
+                            <div class="font-medium text-gray-900 text-sm mb-1">Running/Track</div>
+                            <div class="text-xs text-gray-500">Core cardio – marathon prep or sprints</div>
+                        </div>
+                    </div>
 
-    function showSuccessToast() {
-        const toast = document.createElement('div');
-        toast.className = 'toast-message fixed bottom-8 left-1/2 transform -translate-x-1/2 bg-accent-green text-white px-6 py-4 rounded-xl shadow-lg z-50 pulse-green';
-        toast.innerHTML = '<div class="flex items-center"><i class="fa-solid fa-check-circle mr-3 text-xl"></i><div><div class="font-medium">Great choices!</div><div class="text-sm">Tailoring your multi-sport plan...</div></div></div>';
-        document.body.appendChild(toast);
-        
-        setTimeout(() => toast.remove(), 2500);
-    }
+                    <div class="sport-option ripple-effect bg-white border-2 border-gray-200 rounded-xl p-3 cursor-pointer transition-all hover:border-primary-blue shadow-sm"
+                        data-value="swimming">
+                        <div class="flex flex-col items-center text-center">
+                            <div class="relative w-full flex justify-end mb-2">
+                                <div
+                                    class="w-5 h-5 rounded border-2 border-gray-300 flex items-center justify-center option-checkbox">
+                                    <i class="fa-solid fa-check text-white text-xs hidden check-icon"></i>
+                                </div>
+                            </div>
+                            <div class="text-3xl mb-2">🏊‍♀️</div>
+                            <div class="font-medium text-gray-900 text-sm mb-1">Swimming</div>
+                            <div class="text-xs text-gray-500">Full-body low-impact – recovery king</div>
+                        </div>
+                    </div>
 
-    function createConfetti() {
-        const colors = ['#007BFF', '#28A745', '#FFC107', '#DC3545', '#17A2B8', '#6F42C1'];
-        for (let i = 0; i < 60; i++) {
-            const confetti = document.createElement('div');
-            confetti.className = 'confetti-piece';
-            confetti.style.left = Math.random() * 100 + '%';
-            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-            confetti.style.animationDelay = Math.random() * 0.5 + 's';
-            confetti.style.animationDuration = (2 + Math.random()) + 's';
-            document.body.appendChild(confetti);
-            
-            setTimeout(() => confetti.remove(), 3500);
-        }
-    }
+                    <div class="sport-option ripple-effect bg-white border-2 border-gray-200 rounded-xl p-3 cursor-pointer transition-all hover:border-primary-blue shadow-sm"
+                        data-value="yoga">
+                        <div class="flex flex-col items-center text-center">
+                            <div class="relative w-full flex justify-end mb-2">
+                                <div
+                                    class="w-5 h-5 rounded border-2 border-gray-300 flex items-center justify-center option-checkbox">
+                                    <i class="fa-solid fa-check text-white text-xs hidden check-icon"></i>
+                                </div>
+                            </div>
+                            <div class="text-3xl mb-2">🧘‍♀️</div>
+                            <div class="font-medium text-gray-900 text-sm mb-1">Yoga/Pilates</div>
+                            <div class="text-xs text-gray-500">Flex & balance – multi-sport recovery</div>
+                        </div>
+                    </div>
 
-    function advanceToNextScreen() {
-        if (selectedSports.length < minSelections) {
-            return;
-        }
+                    <div class="sport-option ripple-effect bg-white border-2 border-gray-200 rounded-xl p-3 cursor-pointer transition-all hover:border-primary-blue shadow-sm"
+                        data-value="weightlifting">
+                        <div class="flex flex-col items-center text-center">
+                            <div class="relative w-full flex justify-end mb-2">
+                                <div
+                                    class="w-5 h-5 rounded border-2 border-gray-300 flex items-center justify-center option-checkbox">
+                                    <i class="fa-solid fa-check text-white text-xs hidden check-icon"></i>
+                                </div>
+                            </div>
+                            <div class="text-3xl mb-2">🏋️‍♂️</div>
+                            <div class="font-medium text-gray-900 text-sm mb-1">Weightlifting</div>
+                            <div class="text-xs text-gray-500">Strength base – supports all activities</div>
+                        </div>
+                    </div>
 
-        createConfetti();
-        showSuccessToast();
+                    <div class="sport-option ripple-effect bg-white border-2 border-gray-200 rounded-xl p-3 cursor-pointer transition-all hover:border-primary-blue shadow-sm"
+                        data-value="cycling">
+                        <div class="flex flex-col items-center text-center">
+                            <div class="relative w-full flex justify-end mb-2">
+                                <div
+                                    class="w-5 h-5 rounded border-2 border-gray-300 flex items-center justify-center option-checkbox">
+                                    <i class="fa-solid fa-check text-white text-xs hidden check-icon"></i>
+                                </div>
+                            </div>
+                            <div class="text-3xl mb-2">🚴‍♀️</div>
+                            <div class="font-medium text-gray-900 text-sm mb-1">Cycling</div>
+                            <div class="text-xs text-gray-500">Leg power & cardio – urban commute hack</div>
+                        </div>
+                    </div>
 
-        // 保存选择的运动到 localStorage
-        localStorage.setItem('q3_sports', JSON.stringify(selectedSports));
+                    <div id="other-sport-card"
+                        class="sport-option ripple-effect bg-white border-2 border-gray-200 rounded-xl p-3 cursor-pointer transition-all hover:border-primary-blue shadow-sm"
+                        data-value="other">
+                        <div class="flex flex-col items-center text-center">
+                            <div class="relative w-full flex justify-end mb-2">
+                                <div
+                                    class="w-5 h-5 rounded border-2 border-gray-300 flex items-center justify-center option-checkbox">
+                                    <i class="fa-solid fa-check text-white text-xs hidden check-icon"></i>
+                                </div>
+                            </div>
+                            <div class="text-3xl mb-2">➕</div>
+                            <div class="font-medium text-gray-900 text-sm mb-1">Other/Custom</div>
+                            <div class="text-xs text-gray-500">Tell us your sport</div>
+                        </div>
+                    </div>
+                </div>
 
-        setTimeout(() => {
-            console.log('Selected Sports:', selectedSports);
-            console.log('Redirecting to home.html...');
-            // 跳转到 home.html
-            window.location.href = 'home.html';
-        }, 2500);
-    }
+                <div id="custom-input-container" class="hidden mb-6 px-2">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Tell us your sport:</label>
+                    <input type="text" id="custom-sport-input" placeholder="e.g., Rock climbing, Martial arts..."
+                        class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-primary-blue focus:outline-none text-sm"
+                        maxlength="50">
+                </div>
 
-    document.querySelectorAll('.sport-option').forEach(option => {
-        option.addEventListener('click', function() {
-            const sportValue = this.dataset.value;
-            const checkbox = this.querySelector('.option-checkbox');
-            const checkIcon = this.querySelector('.check-icon');
-            const isSelected = selectedSports.includes(sportValue);
+                <div class="text-center mb-4">
+                    <p class="text-sm font-medium text-accent-green">Mix & match for ultimate fitness!</p>
+                </div>
 
-            if (sportValue === 'other') {
-                if (!isSelected) {
-                    if (selectedSports.length >= maxSelections) {
-                        showMaxSelectionToast();
-                        return;
-                    }
-                    this.classList.add('active', 'border-accent-green', 'bg-green-50');
-                    this.classList.remove('border-gray-200');
-                    checkbox.classList.add('bg-accent-green', 'border-accent-green');
-                    checkIcon.classList.remove('hidden');
-                    
-                    customInputContainer.classList.remove('hidden');
-                    customSportInput.focus();
-                    
-                    selectedSports.push(sportValue);
+                <a href="#" id="skip-link" class="block text-center text-sm text-gray-500 hover:text-gray-700 mb-4">Skip
+                    & generalize</a>
+
+                <button id="continue-btn" disabled
+                    class="w-full bg-gray-300 text-gray-500 py-4 rounded-xl font-semibold text-base transition-all duration-300 disabled:cursor-not-allowed">
+                    继续 <i class="fa-solid fa-arrow-right ml-2"></i>
+                </button>
+            </section>
+
+        </main>
+
+    </div>
+
+    <script>
+        window.addEventListener('load', function () {
+            let selectedSports = [];
+            const maxSelections = 5;
+            const minSelections = 1;
+
+            const selectionCounter = document.getElementById('selection-counter');
+            const customInputContainer = document.getElementById('custom-input-container');
+            const customSportInput = document.getElementById('custom-sport-input');
+            const otherSportCard = document.getElementById('other-sport-card');
+
+            function updateSelectionCounter() {
+                selectionCounter.textContent = 'Selected: ' + selectedSports.length + '/5';
+
+                const continueBtn = document.getElementById('continue-btn');
+
+                if (selectedSports.length > 0) {
+                    selectionCounter.classList.remove('text-primary-blue');
+                    selectionCounter.classList.add('text-accent-green', 'pulse-green');
+
+                    // 启用继续按钮
+                    continueBtn.disabled = false;
+                    continueBtn.className = 'w-full bg-gradient-to-r from-primary-blue to-accent-green text-white py-4 rounded-xl font-semibold text-base shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105';
                 } else {
-                    this.classList.remove('active', 'border-accent-green', 'bg-green-50');
-                    this.classList.add('border-gray-200');
-                    checkbox.classList.remove('bg-accent-green', 'border-accent-green');
-                    checkIcon.classList.add('hidden');
-                    
-                    customInputContainer.classList.add('hidden');
-                    customSportInput.value = '';
-                    
-                    selectedSports = selectedSports.filter(s => s !== sportValue);
-                }
-            } else {
-                if (isSelected) {
-                    this.classList.remove('active', 'border-accent-green', 'bg-green-50');
-                    this.classList.add('border-gray-200');
-                    checkbox.classList.remove('bg-accent-green', 'border-accent-green');
-                    checkIcon.classList.add('hidden');
-                    
-                    selectedSports = selectedSports.filter(s => s !== sportValue);
-                } else {
-                    if (selectedSports.length >= maxSelections) {
-                        showMaxSelectionToast();
-                        return;
-                    }
-                    
-                    this.classList.add('active', 'border-accent-green', 'bg-green-50');
-                    this.classList.remove('border-gray-200');
-                    checkbox.classList.add('bg-accent-green', 'border-accent-green');
-                    checkIcon.classList.remove('hidden');
-                    
-                    selectedSports.push(sportValue);
+                    selectionCounter.classList.remove('text-accent-green', 'pulse-green');
+                    selectionCounter.classList.add('text-primary-blue');
+
+                    // 禁用继续按钮
+                    continueBtn.disabled = true;
+                    continueBtn.className = 'w-full bg-gray-300 text-gray-500 py-4 rounded-xl font-semibold text-base transition-all duration-300 disabled:cursor-not-allowed';
                 }
             }
+
+            function showMaxSelectionToast() {
+                const toast = document.createElement('div');
+                toast.className = 'toast-message fixed bottom-8 left-1/2 transform -translate-x-1/2 bg-red-500 text-white px-6 py-3 rounded-xl shadow-lg z-50';
+                toast.innerHTML = '<div class="flex items-center"><i class="fa-solid fa-exclamation-circle mr-3 text-lg"></i><div class="text-sm font-medium">Maximum 5 sports allowed</div></div>';
+                document.body.appendChild(toast);
+
+                setTimeout(() => toast.remove(), 2000);
+            }
+
+            function showSuccessToast() {
+                const toast = document.createElement('div');
+                toast.className = 'toast-message fixed bottom-8 left-1/2 transform -translate-x-1/2 bg-accent-green text-white px-6 py-4 rounded-xl shadow-lg z-50 pulse-green';
+                toast.innerHTML = '<div class="flex items-center"><i class="fa-solid fa-check-circle mr-3 text-xl"></i><div><div class="font-medium">Great choices!</div><div class="text-sm">Tailoring your multi-sport plan...</div></div></div>';
+                document.body.appendChild(toast);
+
+                setTimeout(() => toast.remove(), 2500);
+            }
+
+            function createConfetti() {
+                const colors = ['#007BFF', '#28A745', '#FFC107', '#DC3545', '#17A2B8', '#6F42C1'];
+                for (let i = 0; i < 60; i++) {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti-piece';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                    confetti.style.animationDuration = (2 + Math.random()) + 's';
+                    document.body.appendChild(confetti);
+
+                    setTimeout(() => confetti.remove(), 3500);
+                }
+            }
+
+            function advanceToNextScreen() {
+                if (selectedSports.length < minSelections) {
+                    return;
+                }
+
+                createConfetti();
+                showSuccessToast();
+
+                // 保存选择的运动到 localStorage
+                localStorage.setItem('q3_sports', JSON.stringify(selectedSports));
+
+                setTimeout(() => {
+                    console.log('Selected Sports:', selectedSports);
+                    console.log('Redirecting to home.html...');
+                    // 跳转到 home.html
+                    window.location.href = 'home.html';
+                }, 2500);
+            }
+
+            document.querySelectorAll('.sport-option').forEach(option => {
+                option.addEventListener('click', function () {
+                    const sportValue = this.dataset.value;
+                    const checkbox = this.querySelector('.option-checkbox');
+                    const checkIcon = this.querySelector('.check-icon');
+                    const isSelected = selectedSports.includes(sportValue);
+
+                    if (sportValue === 'other') {
+                        if (!isSelected) {
+                            if (selectedSports.length >= maxSelections) {
+                                showMaxSelectionToast();
+                                return;
+                            }
+                            this.classList.add('active', 'border-accent-green', 'bg-green-50');
+                            this.classList.remove('border-gray-200');
+                            checkbox.classList.add('bg-accent-green', 'border-accent-green');
+                            checkIcon.classList.remove('hidden');
+
+                            customInputContainer.classList.remove('hidden');
+                            customSportInput.focus();
+
+                            selectedSports.push(sportValue);
+                        } else {
+                            this.classList.remove('active', 'border-accent-green', 'bg-green-50');
+                            this.classList.add('border-gray-200');
+                            checkbox.classList.remove('bg-accent-green', 'border-accent-green');
+                            checkIcon.classList.add('hidden');
+
+                            customInputContainer.classList.add('hidden');
+                            customSportInput.value = '';
+
+                            selectedSports = selectedSports.filter(s => s !== sportValue);
+                        }
+                    } else {
+                        if (isSelected) {
+                            this.classList.remove('active', 'border-accent-green', 'bg-green-50');
+                            this.classList.add('border-gray-200');
+                            checkbox.classList.remove('bg-accent-green', 'border-accent-green');
+                            checkIcon.classList.add('hidden');
+
+                            selectedSports = selectedSports.filter(s => s !== sportValue);
+                        } else {
+                            if (selectedSports.length >= maxSelections) {
+                                showMaxSelectionToast();
+                                return;
+                            }
+
+                            this.classList.add('active', 'border-accent-green', 'bg-green-50');
+                            this.classList.remove('border-gray-200');
+                            checkbox.classList.add('bg-accent-green', 'border-accent-green');
+                            checkIcon.classList.remove('hidden');
+
+                            selectedSports.push(sportValue);
+                        }
+                    }
+
+                    updateSelectionCounter();
+
+                    if (selectedSports.length >= minSelections) {
+                        setTimeout(() => {
+                            this.classList.remove('active');
+                            advanceToNextScreen();
+                        }, 300);
+                    } else {
+                        setTimeout(() => {
+                            this.classList.remove('active');
+                        }, 300);
+                    }
+                });
+            });
+
+            document.getElementById('skip-link').addEventListener('click', function (e) {
+                e.preventDefault();
+                selectedSports = ['running', 'weightlifting'];
+                advanceToNextScreen();
+            });
+
+            // 继续按钮点击事件
+            document.getElementById('continue-btn').addEventListener('click', function () {
+                console.log('✅ Continue button clicked!');
+                console.log('Button disabled:', this.disabled);
+                console.log('Selected sports count:', selectedSports.length);
+                console.log('Selected sports:', selectedSports);
+                
+                if (!this.disabled && selectedSports.length > 0) {
+                    // 保存选择的运动到 localStorage
+                    localStorage.setItem('q3_sports', JSON.stringify(selectedSports));
+                    console.log('✅ Data saved to localStorage');
+                    console.log('🚀 Redirecting to home.html...');
+
+                    // 跳转到 home.html
+                    window.location.href = 'home.html';
+                } else {
+                    console.log('❌ Cannot redirect - button disabled or no sports selected');
+                }
+            });
+
+            document.getElementById('progress-bar-container').addEventListener('click', function () {
+                const tooltip = document.createElement('div');
+                tooltip.className = 'fixed top-24 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs px-3 py-2 rounded-lg z-50 max-w-xs text-center';
+                tooltip.textContent = 'Sports shape your hybrid workouts – almost done!';
+                document.body.appendChild(tooltip);
+
+                setTimeout(() => tooltip.remove(), 2500);
+            });
 
             updateSelectionCounter();
-
-            if (selectedSports.length >= minSelections) {
-                setTimeout(() => {
-                    this.classList.remove('active');
-                    advanceToNextScreen();
-                }, 300);
-            } else {
-                setTimeout(() => {
-                    this.classList.remove('active');
-                }, 300);
-            }
         });
-    });
-
-    document.getElementById('skip-link').addEventListener('click', function(e) {
-        e.preventDefault();
-        selectedSports = ['running', 'weightlifting'];
-        advanceToNextScreen();
-    });
-
-    // 继续按钮点击事件
-    document.getElementById('continue-btn').addEventListener('click', function() {
-        if (!this.disabled && selectedSports.length > 0) {
-            // 保存选择的运动到 localStorage
-            localStorage.setItem('q3_sports', JSON.stringify(selectedSports));
-            console.log('Selected Sports:', selectedSports);
-            
-            // 跳转到 home.html
-            window.location.href = 'home.html';
-        }
-    });
-
-    document.getElementById('progress-bar-container').addEventListener('click', function() {
-        const tooltip = document.createElement('div');
-        tooltip.className = 'fixed top-24 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs px-3 py-2 rounded-lg z-50 max-w-xs text-center';
-        tooltip.textContent = 'Sports shape your hybrid workouts – almost done!';
-        document.body.appendChild(tooltip);
-        
-        setTimeout(() => tooltip.remove(), 2500);
-    });
-
-    updateSelectionCounter();
-});
-</script>
+    </script>
 
 </body>
+
 </html>
