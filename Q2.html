@@ -341,6 +341,9 @@ window.addEventListener('load', function() {
     }
 
     function completeOnboarding() {
+        console.log('completeOnboarding called');
+        console.log('userData:', userData);
+        
         createConfetti();
         showSuccessToast();
         
@@ -349,7 +352,10 @@ window.addEventListener('load', function() {
         localStorage.setItem('q2_goal', userData.goal);
         localStorage.setItem('q2_experience', userData.experience);
         
+        console.log('Redirecting to Q3.html in 2.5 seconds...');
+        
         setTimeout(() => {
+            console.log('Now redirecting to Q3.html');
             // 跳转到 Q3.html
             window.location.href = 'Q3.html';
         }, 2500);
